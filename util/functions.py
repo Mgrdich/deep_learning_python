@@ -1,3 +1,5 @@
+from typing import List
+
 import numpy
 
 
@@ -33,9 +35,28 @@ def naive_add(x: numpy.ndarray, y: numpy.ndarray) -> numpy.ndarray:
 
 def numpy_add(x: numpy.ndarray, y: numpy.ndarray) -> numpy.ndarray:
     assert x.shape == y.shape
-    print(x.shape)
+    length = len(x.shape)
+
+    param = list(x.shape)
+
+    for index, val in enumerate(param):
+        param[index] = param[index] - 1
+
+    param2 = [0] * length
+
+    elements = (x, y, numpy.array([]))
+
+    print(param2)
+
+    print(param)
+    print(helper_numpy_add(elements, param, param2, 0))
     pass
 
 
-def helper_numpy_add():
+def helper_numpy_add(elements: tuple, arr1: List, arr2: List, index):
+    if arr1 == arr2:
+        # here return the final result
+        return elements[2]
+
+    # recursion of some kind should taken place
     pass
