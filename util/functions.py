@@ -60,6 +60,44 @@ def naive_vector_dot(x: np.ndarray, y: np.ndarray) -> float:
     return z
 
 
+def naive_matrix_vector_dot(x: np.ndarray, y: np.ndarray) -> np.ndarray:
+    assert len(x.shape) == 2
+    assert len(y.shape) == 1
+    assert x.shape[1] == y.shape[0]
+
+    z = np.zeros(x.shape[0])
+    for i in range(x.shape[0]):
+        for j in range(x.shape[1]):
+            z[i] += x[i, j] * y[i]
+
+    return z
+
+
+def naive_matrix_vector_dot1(x: np.ndarray, y: np.ndarray):
+    z = np.zeros(x.shape[0])
+    for i in range(x.shape[0]):
+        z[i] = naive_vector_dot(x[i, :], y)  # Slicing picks up the current row
+    return z
+
+
+def naive_matrix_vector_dot2(x: np.ndarray, y: np.ndarray):
+    """
+    Mathematically speaking same thing as matrix multiplications
+    """
+    assert len(x.shape) == 2
+    assert len(y.shape) == 2
+    assert x.shape[1] == y.shape[0]
+
+    z = np.zeros((x.shape[0], y.shape[1]))
+    for i in range(x.shape[0]):
+        for j in range(y.shape[1]):
+            row_x = x[i, :]
+            column_y = y[:, j]
+            z[i, j] = naive_vector_dot(row_x, column_y)
+
+    return z
+
+
 #
 def numpy_add(x: np.ndarray, y: np.ndarray) -> np.ndarray:
     assert x.shape == y.shape
