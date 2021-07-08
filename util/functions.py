@@ -1,11 +1,11 @@
 from typing import List
 
-import numpy
+import numpy as np
 
 
-def naive_relu(x: numpy.ndarray) -> numpy.ndarray:
+def naive_relu(x: np.ndarray) -> np.ndarray:
     """
-        naive relu for 2 dimensional numpy array
+        naive relu for 2 dimensional np array
     """
     assert len(x.shape) == 2
 
@@ -17,9 +17,9 @@ def naive_relu(x: numpy.ndarray) -> numpy.ndarray:
     return x
 
 
-def naive_add(x: numpy.ndarray, y: numpy.ndarray) -> numpy.ndarray:
+def naive_add(x: np.ndarray, y: np.ndarray) -> np.ndarray:
     """
-       adds 2 dimensional numpy array
+       adds 2 dimensional np array
     """
     assert len(x.shape) == 2
     assert x.shape == y.shape
@@ -33,18 +33,18 @@ def naive_add(x: numpy.ndarray, y: numpy.ndarray) -> numpy.ndarray:
     return x
 
 
-def numpy_add(x: numpy.ndarray, y: numpy.ndarray) -> numpy.ndarray:
+def numpy_add(x: np.ndarray, y: np.ndarray) -> np.ndarray:
     assert x.shape == y.shape
     length = len(x.shape)
 
     param = list(x.shape)
 
-    for index, val in enumerate(param):
-        param[index] = param[index] - 1
+    # for index, val in enumerate(param):
+    #     param[index] = param[index] - 1
 
     param2 = [0] * length
 
-    elements = (x, y, numpy.array([]))
+    elements = (x, y, np.zeros(x.shape))
 
     print(param2)
 
@@ -53,10 +53,22 @@ def numpy_add(x: numpy.ndarray, y: numpy.ndarray) -> numpy.ndarray:
     pass
 
 
-def helper_numpy_add(elements: tuple, arr1: List, arr2: List, index):
-    if arr1 == arr2:
-        # here return the final result
+# TODO turn this into iterator OR iterator data structure to work with any arbitrary data structure
+
+def helper_numpy_add(elements: tuple, arr1: List, arr2: List, index) -> np.ndarray:
+    """
+
+    :param elements: represent the given two arrays and the result
+    :param arr1: last point argument
+    :param arr2: ongoing argument
+    :param index: the current axis
+    :return: np array
+    """
+    if np.equal(arr1, arr2):
         return elements[2]
 
-    # recursion of some kind should taken place
+    for i in range(arr1[index]):
+        # access the correct index
+        pass
+
     pass
