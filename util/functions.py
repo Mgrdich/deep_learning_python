@@ -35,7 +35,7 @@ def naive_add(x: np.ndarray, y: np.ndarray) -> np.ndarray:
     return x
 
 
-def naive_add_matrix_and_vector(x, y) -> np.ndarray:
+def naive_add_matrix_and_vector(x: np.ndarray, y: np.ndarray) -> np.ndarray:
     assert len(x.shape) == 2
     assert len(y.shape) == 1
     assert x.shape[1] == y.shape[0]
@@ -46,6 +46,18 @@ def naive_add_matrix_and_vector(x, y) -> np.ndarray:
             x[i, j] += y[j]
 
     return x
+
+
+def naive_vector_dot(x: np.ndarray, y: np.ndarray) -> float:
+    assert len(x.shape) == 1
+    assert len(y.shape) == 1
+    assert x.shape[0] == y.shape[0]
+
+    z = 0
+    for i in range(x.shape[0]):
+        z += x[i] * y[i]
+
+    return z
 
 
 #

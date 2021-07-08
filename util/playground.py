@@ -1,6 +1,6 @@
 import numpy as np
 
-from util.functions import naive_relu, naive_add, numpy_add, naive_add_matrix_and_vector
+from util.functions import naive_relu, naive_add, numpy_add, naive_add_matrix_and_vector, naive_vector_dot
 
 x = np.array([[1, 2], [1, 2]])
 
@@ -20,3 +20,8 @@ x2 = np.array([[1, 3, 3], [1, 2, 6]])
 y2 = np.array([1, 3, 3])
 
 # print(naive_add_matrix_and_vector(x2, y2))
+
+x3 = np.array([1, 3, 3])
+y3 = np.array([1, 3, 3])
+
+print(naive_vector_dot(x3, y3))
