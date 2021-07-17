@@ -99,6 +99,19 @@ def naive_matrix_vector_dot2(x: np.ndarray, y: np.ndarray):
 
 
 #
+
+#
+## Helper functions
+
+def vectorize_sequences(sequences: np.ndarray, dimension: int) -> np.ndarray:
+    results = np.zeros((len(sequences), dimension))
+    for i, sequence in enumerate(sequences):
+        results[i, sequence] = 1.
+    return results
+
+
+#
+
 def numpy_add(x: np.ndarray, y: np.ndarray) -> np.ndarray:
     assert x.shape == y.shape
     length = len(x.shape)
