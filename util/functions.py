@@ -101,16 +101,25 @@ def naive_matrix_vector_dot2(x: np.ndarray, y: np.ndarray):
 #
 
 #
-## Helper functions
 
 def vectorize_sequences(sequences: np.ndarray, dimension: int) -> np.ndarray:
+    """
+    Encoding the array into binary matrix
+    """
     results = np.zeros((len(sequences), dimension))
     for i, sequence in enumerate(sequences):
         results[i, sequence] = 1.
     return results
 
 
-#
+# TODO what is the difference though ???
+def to_one_hot(labels, dimension) -> np.ndarray:
+    results = np.zeros((len(labels), dimension))
+    for i, label in enumerate(labels):
+        results[i, label] = 1
+    return results
+    #
+
 
 def numpy_add(x: np.ndarray, y: np.ndarray) -> np.ndarray:
     assert x.shape == y.shape
