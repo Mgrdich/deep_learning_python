@@ -102,6 +102,7 @@ def kfold_validation(k: int, num_epochs: int,
                      train_data: np.ndarray,
                      train_targets: np.ndarray,
                      build_fn: Callable,
+                     validation: bool = False,
                      logs: bool = True) -> list:
     """
     k Fold algorithm for datasets that contain small amount of data
@@ -144,17 +145,28 @@ def kfold_validation(k: int, num_epochs: int,
         )
 
         model = build_fn()
+        evaluate = None
 
-        # TODO check whether we can pass parameter with args maybe?
-        history = model.fit(partial_train_data, partial_train_targets,
-                            epochs=num_epochs, batch_size=1, verbose=0)
+        if validation:
+            history = model.fit(partial_train_data, partial_train_targets,
+                                validation_data=(val_data, val_targets),
+                                epochs=num_epochs, batch_size=1, verbose=0)
 
-        evaluate = model.evaluate(val_data, val_targets, verbose=0)
+        else:
+            # TODO check whether we can pass parameter with args maybe?
+            history = model.fit(partial_train_data, partial_train_targets,
+                                epochs=num_epochs, batch_size=1, verbose=0)
+
+            evaluate = model.evaluate(val_data, val_targets, verbose=0)
+
         obj = {
             "history": history,
             "model": model,
-            "evaluate": evaluate
         }
+
+        if evaluate:
+            obj[evaluate] = evaluate
+
         all_scores.append(obj)
 
     return all_scores
