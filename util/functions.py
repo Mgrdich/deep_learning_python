@@ -98,8 +98,11 @@ def naive_matrix_vector_dot2(x: np.ndarray, y: np.ndarray):
     return z
 
 
-def k_fold_validation(k: int, num_epochs: int, train_data: np.ndarray, train_targets: np.ndarray, build_fn: Callable,
-                      logs: bool = True) -> list:
+def kfold_validation(k: int, num_epochs: int,
+                     train_data: np.ndarray,
+                     train_targets: np.ndarray,
+                     build_fn: Callable,
+                     logs: bool = True) -> list:
     """
     k Fold algorithm for datasets that contain small amount of data
     for validation to avoid over-fitting
@@ -148,7 +151,6 @@ def k_fold_validation(k: int, num_epochs: int, train_data: np.ndarray, train_tar
 
         evaluate = model.evaluate(val_data, val_targets, verbose=0)
         obj = {
-            "scores": all_scores,
             "history": history,
             "model": model,
             "evaluate": evaluate
