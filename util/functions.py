@@ -113,6 +113,7 @@ def kfold_validation(k: int, num_epochs: int,
     :param train_data: Training data from
     :param train_targets: Training targets
     :param build_fn: model Build function instance for Tensorflow
+    :param validation the epoch validation step
     :param logs: show load or not
     :return: List of object states
     """
@@ -147,13 +148,14 @@ def kfold_validation(k: int, num_epochs: int,
         model = build_fn()
         evaluate = None
 
+        # TODO make the parameter more dynamic and avoid repetition
+
         if validation:
             history = model.fit(partial_train_data, partial_train_targets,
                                 validation_data=(val_data, val_targets),
                                 epochs=num_epochs, batch_size=1, verbose=0)
 
         else:
-            # TODO check whether we can pass parameter with args maybe?
             history = model.fit(partial_train_data, partial_train_targets,
                                 epochs=num_epochs, batch_size=1, verbose=0)
 
@@ -165,7 +167,7 @@ def kfold_validation(k: int, num_epochs: int,
         }
 
         if evaluate:
-            obj[evaluate] = evaluate
+            obj['evaluate'] = evaluate
 
         all_scores.append(obj)
 
