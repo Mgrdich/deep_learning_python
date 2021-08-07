@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Callable
 
 import numpy as np
 
@@ -96,6 +96,47 @@ def naive_matrix_vector_dot2(x: np.ndarray, y: np.ndarray):
             z[i, j] = naive_vector_dot(row_x, column_y)
 
     return z
+
+
+def k_fold_validation(k: int,
+                      num_epochs: int,
+                      train_data: np.ndarray,
+                      train_targets: np.ndarray,
+                      build_fn: Callable,
+                      logs=True
+                      ) -> List:
+    num_val_samples = len(train_data) // k
+    all_scores = []
+
+    for i in range(k):
+        if logs:
+            print('processing fold #', i)
+
+        # prepare validation data from partitions #k
+        val_data = train_data[i * num_val_samples: (i + 1) * num_val_samples]
+        val_targets = train_targets[i * num_val_samples: (i + 1) * num_val_samples]
+
+        # prepare the training data from all the other partitions
+
+        partial_train_data = np.concatenate(
+            [train_data[:i * num_val_samples],
+             train_data[(i + 1) * num_val_samples:]
+             ],
+            axis=0
+        )
+
+        partial_train_targets = np.concatenate(
+            [train_targets[:i * num_val_samples],
+             train_targets[(i + 1) * num_val_samples:]
+             ],
+            axis=0
+        )
+
+        model = build_fn()
+
+        return all_scores
+
+    return
 
 
 #
