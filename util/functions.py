@@ -98,13 +98,20 @@ def naive_matrix_vector_dot2(x: np.ndarray, y: np.ndarray):
     return z
 
 
-def k_fold_validation(k: int,
-                      num_epochs: int,
-                      train_data: np.ndarray,
-                      train_targets: np.ndarray,
-                      build_fn: Callable,
-                      logs=True
-                      ) -> List:
+def k_fold_validation(k: int, num_epochs: int, train_data: np.ndarray, train_targets: np.ndarray, build_fn: Callable,
+                      logs: bool = True) -> list:
+    """
+    k Fold algorithm for datasets that contain small amount of data
+    for validation to avoid over-fitting
+
+    :param k: Number of folds
+    :param num_epochs:  Number of epochs
+    :param train_data: Training data from
+    :param train_targets: Training targets
+    :param build_fn: model Build function instance for Tensorflow
+    :param logs: show load or not
+    :return: List of object states
+    """
     num_val_samples = len(train_data) // k
     all_scores = []
 
@@ -113,6 +120,7 @@ def k_fold_validation(k: int,
             print('processing fold #', i)
 
         # prepare validation data from partitions #k
+
         val_data = train_data[i * num_val_samples: (i + 1) * num_val_samples]
         val_targets = train_targets[i * num_val_samples: (i + 1) * num_val_samples]
 
@@ -134,9 +142,20 @@ def k_fold_validation(k: int,
 
         model = build_fn()
 
-        return all_scores
+        # TODO check whether we can pass parameter with args maybe?
+        history = model.fit(partial_train_data, partial_train_targets,
+                            epochs=num_epochs, batch_size=1, verbose=0)
 
-    return
+        evaluate = model.evaluate(val_data, val_targets, verbose=0)
+        obj = {
+            "scores": all_scores,
+            "history": history,
+            "model": model,
+            "evaluate": evaluate
+        }
+        all_scores.append(obj)
+
+    return all_scores
 
 
 #
