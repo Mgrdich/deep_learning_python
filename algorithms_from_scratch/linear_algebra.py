@@ -1,5 +1,6 @@
 from functools import reduce
 from typing import List
+import math
 
 
 def vector_add(v: List, w: List) -> List:
@@ -74,3 +75,31 @@ def vectors_mean(v: List[List]) -> List:
     """
     n = len(v)
     return scalar_multiply_vector(1 / n, vectors_sum(v))
+
+
+def vector_dot(v: List, w: List) -> float:
+    """
+    The dot product of two vectors
+    v_1 * w_1 + v_2 * w_2 + .... + v_n * w_n
+    :param v: First vector
+    :param w: Second vector
+    :return: Number
+    """
+
+    # every turn gets added in the parameter # ASK COOL ONE
+    return sum(
+        v_i * w_i for v_i, w_i in zip(v, w)
+    )
+
+
+def sum_of_squares(v: List) -> float:
+    """
+    The sum of the Squares of a Vector
+    :param v: a Vector
+    :return: a Number
+    """
+    return vector_dot(v, v)
+
+
+def vector_magnitude(v: List) -> float:
+    return math.sqrt(sum_of_squares(v))
