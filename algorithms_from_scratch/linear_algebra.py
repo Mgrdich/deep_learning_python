@@ -103,3 +103,33 @@ def sum_of_squares(v: List) -> float:
 
 def vector_magnitude(v: List) -> float:
     return math.sqrt(sum_of_squares(v))
+
+
+def vector_squared_distance(v: List, w: List) -> float:
+    """
+    (v_1 - w_2) **2 + ... + (v_n - w_n) **2
+    :param v: First Vector
+    :param w: Second Vector
+    :return: a vector of squared distance
+    """
+    return sum_of_squares(vector_subtract(v, w))
+
+
+def vector_distance(v: List, w: List):
+    """
+    Calculates the Vectors distance
+    :param v: First Vector
+    :param w: Second Vector
+    :return: Distance
+    """
+    return math.sqrt(vector_squared_distance(v, w))  # TODO check me out
+
+
+def vector_distance_v2(v: List, w: List):
+    """
+    Calculates the Vectors distance
+    :param v: First Vector
+    :param w: Second Vector
+    :return: Distance
+    """
+    return vector_magnitude(vector_subtract(v, w))
