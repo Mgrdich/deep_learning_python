@@ -1,11 +1,12 @@
+from functools import reduce
 from typing import List
-
-from util.Util_lib import Util_Lib
 
 
 def vector_add(v: List, w: List) -> List:
     """
     Addition of two Vectors
+    The only thing is being not same size the zip is discarding
+    the remaining ones
     :param v: first vector
     :param w: second vector
     :return: vector
@@ -27,7 +28,7 @@ def vector_subtract(v: List, w: List) -> List:
     ]
 
 
-def vector_sum(v: List[List]) -> List:
+def vectors_sum(v: List[List]) -> List:
     """
     Sum all the corresponding elements
     :param v: List of Lists
@@ -36,6 +37,40 @@ def vector_sum(v: List[List]) -> List:
 
     result = v[0]
     for vector in v[1:]:
+        result = vector_add(result, vector)
 
-        result = vector_add(result,vector)
+    return result
 
+
+def vector_sum_v2(v: List[List]) -> List:
+    """
+    Sum all the corresponding elements
+    :param v: List of Lists
+    :return: a Vector
+    """
+
+    return reduce(vector_add, v)
+
+
+def scalar_multiply_vector(c: float, v: List) -> List:
+    """
+    Multiple a Vector By a Scalar
+   :param c: Number a scalar
+   :param v: the vector
+   :return: Result Vector
+   """
+    return [c * v_i for v_i in v]
+
+
+def vectors_mean(v: List[List]) -> List:
+    """
+    compute the vector whose ith element is the mean of the ith
+    elements of the input vectors
+
+    TODO Bad point no check of same size
+
+    :param v:List of Vectors
+    :return: Vector mean
+    """
+    n = len(v)
+    return scalar_multiply_vector(1 / n, vectors_sum(v))
