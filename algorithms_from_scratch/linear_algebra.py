@@ -133,3 +133,15 @@ def vector_distance_v2(v: List, w: List):
     :return: Distance
     """
     return vector_magnitude(vector_subtract(v, w))
+
+
+# Matrices
+def matrix_shape(A: List[List]):
+    """
+
+    :param A: Matrix
+    :return: tuple represent the shape
+    """
+    num_rows = len(A)
+    num_cols = len(A[0]) if A else 0
+    return num_rows, num_cols
