@@ -115,7 +115,7 @@ def vector_squared_distance(v: List, w: List) -> float:
     return sum_of_squares(vector_subtract(v, w))
 
 
-def vector_distance(v: List, w: List):
+def vector_distance(v: List, w: List) -> float:
     """
     Calculates the Vectors distance
     :param v: First Vector
@@ -125,7 +125,7 @@ def vector_distance(v: List, w: List):
     return math.sqrt(vector_squared_distance(v, w))  # TODO check me out
 
 
-def vector_distance_v2(v: List, w: List):
+def vector_distance_v2(v: List, w: List) -> float:
     """
     Calculates the Vectors distance
     :param v: First Vector
@@ -136,7 +136,7 @@ def vector_distance_v2(v: List, w: List):
 
 
 # Matrices
-def matrix_shape(A: List[List]):
+def matrix_shape(A: List[List]) -> tuple:
     """
 
     :param A: Matrix
