@@ -2,6 +2,8 @@ from functools import reduce
 from typing import List
 import math
 
+from util.Util_lib import Util_Lib
+
 
 def vector_add(v: List, w: List) -> List:
     """
@@ -67,12 +69,15 @@ def vectors_mean(v: List[List]) -> List:
     """
     compute the vector whose ith element is the mean of the ith
     elements of the input vectors
-
-    TODO Bad point no check of same size
-
     :param v:List of Vectors
     :return: Vector mean
     """
+    # TODO make me a decorator perhaps?
+    if not Util_Lib.isTensor(v):
+        raise Exception('Not a matrix')
+
+    # isListSameLength function should be used  TODO Bad point no check of same size
+
     n = len(v)
     return scalar_multiply_vector(1 / n, vectors_sum(v))
 
@@ -122,7 +127,7 @@ def vector_distance(v: List, w: List) -> float:
     :param w: Second Vector
     :return: Distance
     """
-    return math.sqrt(vector_squared_distance(v, w))  # TODO check me out
+    return math.sqrt(vector_squared_distance(v, w))
 
 
 def vector_distance_v2(v: List, w: List) -> float:
@@ -138,10 +143,14 @@ def vector_distance_v2(v: List, w: List) -> float:
 # Matrices
 def matrix_shape(A: List[List]) -> tuple:
     """
-
     :param A: Matrix
     :return: tuple represent the shape
     """
+
+    # TODO make me a decorator perhaps?
+    if not Util_Lib.isTensor(A):
+        raise Exception('Not a matrix')
+
     num_rows = len(A)
     num_cols = len(A[0]) if A else 0
     return num_rows, num_cols
