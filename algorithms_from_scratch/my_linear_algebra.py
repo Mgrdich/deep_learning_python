@@ -21,14 +21,16 @@ class Vector:
         self.__length = len(self.__local_vector)
 
     def __add__(self, element):
-        print(element, 'ADD Operator')
-        print(uL.isNumber(element))
         if uL.isNumber(element):
-            arr = [
+            return Vector([
                 i + element for i in self
-            ]
-            print('pr', arr)
-            return arr
+            ])
+
+        print(self.__class__)
+        if isinstance(element, self.__class__):
+            print('Yeah', self.__class__)
+
+        raise Exception('Element type is not supported')
 
     def __iter__(self):
         self.n = 0
