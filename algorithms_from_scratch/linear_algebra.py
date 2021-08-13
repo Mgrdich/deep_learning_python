@@ -1,5 +1,5 @@
 from functools import reduce
-from typing import List
+from typing import List, Callable
 import math
 
 from util.Util_lib import Util_Lib
@@ -154,3 +154,43 @@ def matrix_shape(A: List[List]) -> tuple:
     num_rows = len(A)
     num_cols = len(A[0]) if A else 0
     return num_rows, num_cols
+
+
+def get_matrix_row(A: List[List], i: int) -> List:
+    """
+    :param A: Matrix
+    :param i: the row index
+    :return: the current row
+    """
+    return A[i]
+
+
+def get_column_row(A: List[List], i: int) -> List:
+    """
+    :param A: Matrix
+    :param i: the row index
+    :return: the current row
+    """
+    return [
+        A_i[i] for A_i in A
+    ]
+
+
+def make_matrix(num_rows: int, num_cols: int, entry_fn: Callable) -> List[List]:
+    # TODO if not passed entry_fn make the default the indexes
+
+    """
+    :param num_rows: number of rows
+    :param num_cols: number of cols
+    :param entry_fn:
+    :return: Matrix
+    """
+    return [[entry_fn(i, j) for j in range(num_cols)] for i in range(num_rows)]  # create one list for each i
+
+
+def make_identity_matrix(square_matrix_length: int) -> List[List]:
+    """
+    :param square_matrix_length:
+    :return: Matrix
+    """
+    return make_matrix(square_matrix_length, square_matrix_length, lambda i, j: 1 if i == j else 0)

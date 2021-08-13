@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Iterable
 
 
 class Util_Lib:
@@ -10,6 +10,14 @@ class Util_Lib:
     @staticmethod
     def isTuple(element) -> bool:
         return isinstance(element, tuple)
+
+    @staticmethod
+    def isDictionary(element) -> bool:
+        return isinstance(element, dict)
+
+    @staticmethod
+    def isIterable(element) -> bool:
+        return isinstance(element, Iterable)
 
     @staticmethod
     def isTensor(element) -> bool:
