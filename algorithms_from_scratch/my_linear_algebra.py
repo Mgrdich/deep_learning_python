@@ -17,24 +17,33 @@ class Vector:
         for elem in iterator:
             self.__local_vector.append(elem)
 
+        # len() is O(1) operation
         self.__length = len(self.__local_vector)
 
-    def __add__(self, other):
-        print(other)
-        pass
+    def __add__(self, element):
+        print(element, 'ADD Operator')
+        print(uL.isNumber(element))
+        if uL.isNumber(element):
+            arr = [
+                i + element for i in self
+            ]
+            print('pr', arr)
+            return arr
 
     def __iter__(self):
         self.n = 0
         return self
 
     def __next__(self):
-        if self.n < self.length:
+        if self.n < self.__length:
             result = self.__local_vector[self.n]
             self.n += 1
             return result
+        else:
+            raise StopIteration
 
     @property
-    def length(self):
+    def shape(self):
         return self.__length
 
 

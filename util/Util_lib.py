@@ -20,6 +20,18 @@ class Util_Lib:
         return isinstance(element, Iterable)
 
     @staticmethod
+    def isFloat(element) -> bool:
+        return isinstance(element, float)
+
+    @staticmethod
+    def isInteger(element) -> bool:
+        return isinstance(element, int)
+
+    @staticmethod
+    def isNumber(element) -> bool:
+        return Util_Lib.isInteger(element) or Util_Lib.isFloat(element)
+
+    @staticmethod
     def isTensor(element) -> bool:
         return all(isinstance(ele, list) for ele in element)
 
