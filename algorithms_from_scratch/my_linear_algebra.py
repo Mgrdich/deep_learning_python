@@ -101,9 +101,22 @@ class Vector:
     def __len__(self) -> int:
         return self.shape
 
+    def dot(self, other) -> Union[int, float]:
+        if isinstance(other, self.__class__):
+            # TODO check the way one should deal with extra variables
+            return sum(self * other)
+
+        raise Exception('Element type is not supported')
+
+    def getNewVectorIteratorPairSm(self, other):
+        iterator, v = (other, self) if other.shape > self.shape else (self, other)
+        # memory allocate smaller iterator
+        new_vector = Vector(v.__local_vector.copy())
+        return new_vector, iterator
+
     def getNewVectorIteratorPair(self, other) -> tuple:
         v, iterator = (other, self) if other.shape > self.shape else (self, other)
-        # memory allocate size of the biggest
+        # memory allocate size of the biggest iterator
         # TODO check the parameter and reference thing
         new_vector = Vector(v.__local_vector.copy())
 
