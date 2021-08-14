@@ -33,11 +33,7 @@ class Vector:
             ])
 
         if isinstance(other, self.__class__):
-            # TODO remove duplicates from the operation static Function maybe??
-
-            v, iterator = (other, self) if other.shape > self.shape else (self, other)
-            # memory allocate size of the biggest TODO check the parameter and reference thing
-            new_vector = Vector(v.__local_vector.copy())
+            new_vector, iterator = self.getNewVectorIteratorPair(other)
 
             for ind in range(iterator.shape):
                 new_vector[ind] = self[ind] + other[ind]
@@ -53,9 +49,7 @@ class Vector:
             ])
 
         if isinstance(other, self.__class__):
-            v, iterator = (other, self) if other.shape > self.shape else (self, other)
-            # memory allocate size of the biggest TODO check the parameter and reference thing
-            new_vector = Vector(v.__local_vector.copy())
+            new_vector, iterator = self.getNewVectorIteratorPair(other)
 
             for ind in range(iterator.shape):
                 new_vector[ind] = self[ind] - other[ind]
@@ -71,9 +65,7 @@ class Vector:
             ])
 
         if isinstance(other, self.__class__):
-            v, iterator = (other, self) if other.shape > self.shape else (self, other)
-            # memory allocate size of the biggest TODO check the parameter and reference thing
-            new_vector = Vector(v.__local_vector.copy())
+            new_vector, iterator = self.getNewVectorIteratorPair(other)
 
             for ind in range(iterator.shape):
                 new_vector[ind] = self[ind] * other[ind]
@@ -109,12 +101,13 @@ class Vector:
     def __len__(self) -> int:
         return self.shape
 
-    def getIteratorNewVectorPair(self, other) -> tuple:
+    def getNewVectorIteratorPair(self, other) -> tuple:
         v, iterator = (other, self) if other.shape > self.shape else (self, other)
-        # memory allocate size of the biggest TODO check the parameter and reference thing
+        # memory allocate size of the biggest
+        # TODO check the parameter and reference thing
         new_vector = Vector(v.__local_vector.copy())
 
-        return iterator, new_vector
+        return new_vector, iterator
 
     @property
     def shape(self):
