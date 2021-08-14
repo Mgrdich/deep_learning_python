@@ -14,6 +14,7 @@ class Vector:
         if uL.isDictionary(iterator):
             iterator = iterator.values()
 
+        # TODO check all the elements are numbers
         for elem in iterator:
             self.__local_vector.append(elem)
 
@@ -26,11 +27,47 @@ class Vector:
                 i + element for i in self
             ])
 
-        print(self.__class__)
         if isinstance(element, self.__class__):
-            print('Yeah', self.__class__)
+            v, iterator = (element, self) if element.shape > self.shape else (self, element)
+            # memory allocate size of the biggest
+            print('local Vector', v.__local_vector.copy())
+            new_vector = Vector(v.__local_vector.copy())
+
+            for ind in range(iterator.shape):
+                new_vector[ind] = self[ind] + element[ind]
+
+            return new_vector
 
         raise Exception('Element type is not supported')
+
+    def __sub__(self, other):
+        if uL.isNumber(other):
+            return Vector([
+                i - other for i in self
+            ])
+
+        if isinstance(other, self.__class__):
+            iterator = other if other.shape > self.shape else self
+            new_vector = Vector([0] * iterator.shape)  # memory allocate
+
+            for ind in range(iterator.shape):
+                new_vector[ind] = self[ind] - other[ind]
+
+            return new_vector
+
+        raise Exception('Element type is not supported')
+
+    def __getitem__(self, key: int) -> Union[int, float]:
+        if key >= self.shape:
+            raise Exception('Vector out of bounds')
+
+        return self.__local_vector[key]
+
+    def __setitem__(self, key: int, value: Union[int, float]):
+        if key >= self.shape:
+            raise Exception('Vector out of bounds')
+
+        self.__local_vector[key] = value
 
     def __iter__(self):
         self.n = 0
@@ -43,6 +80,9 @@ class Vector:
             return result
         else:
             raise StopIteration
+
+    def __len__(self) -> int:
+        return self.shape
 
     @property
     def shape(self):
