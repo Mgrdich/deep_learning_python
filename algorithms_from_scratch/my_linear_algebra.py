@@ -4,15 +4,17 @@ from util.Util_lib import Util_Lib as uL
 
 
 class Vector:
-    __local_vector = []
-    __length = 0
-
     def __init__(self, iterator: Union[List, tuple, dict]):
+        self.__local_vector = []
+        self.__length = 0
+
         if not uL.isIterable(iterator):
             raise Exception('Parameter must by an iterator object')
 
         if uL.isDictionary(iterator):
             iterator = iterator.values()
+
+        iterator = iterator.copy()
 
         # TODO check all the elements are numbers
         for elem in iterator:
@@ -29,8 +31,7 @@ class Vector:
 
         if isinstance(element, self.__class__):
             v, iterator = (element, self) if element.shape > self.shape else (self, element)
-            # memory allocate size of the biggest
-            print('local Vector', v.__local_vector.copy())
+            # memory allocate size of the biggest TODO check the parameter and reference thing
             new_vector = Vector(v.__local_vector.copy())
 
             for ind in range(iterator.shape):
@@ -47,8 +48,9 @@ class Vector:
             ])
 
         if isinstance(other, self.__class__):
-            iterator = other if other.shape > self.shape else self
-            new_vector = Vector([0] * iterator.shape)  # memory allocate
+            v, iterator = (other, self) if other.shape > self.shape else (self, other)
+            # memory allocate size of the biggest TODO check the parameter and reference thing
+            new_vector = Vector(v.__local_vector.copy())
 
             for ind in range(iterator.shape):
                 new_vector[ind] = self[ind] - other[ind]
@@ -88,6 +90,10 @@ class Vector:
     def shape(self):
         return self.__length
 
+    @property
+    def vector(self):
+        return self.__local_vector
+
 
 class Matrix:
     def __init__(self):
@@ -95,3 +101,11 @@ class Matrix:
 
     def __add__(self, other):
         pass
+
+
+ss = Vector([1, 2])
+ss1 = Vector([1, 2])
+
+# a = ss + 10
+#
+# print(a.vector)
