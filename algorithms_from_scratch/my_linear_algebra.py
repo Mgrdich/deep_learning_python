@@ -18,24 +18,29 @@ class Vector:
 
         # TODO check all the elements are numbers
         for elem in iterator:
+            if not uL.isNumber(elem):
+                raise Exception('Not all parameters are Numbers')
+
             self.__local_vector.append(elem)
 
         # len() is O(1) operation
         self.__length = len(self.__local_vector)
 
-    def __add__(self, element):
-        if uL.isNumber(element):
+    def __add__(self, other):
+        if uL.isNumber(other):
             return Vector([
-                i + element for i in self
+                i + other for i in self
             ])
 
-        if isinstance(element, self.__class__):
-            v, iterator = (element, self) if element.shape > self.shape else (self, element)
+        if isinstance(other, self.__class__):
+            # TODO remove duplicates from the operation static Function maybe??
+
+            v, iterator = (other, self) if other.shape > self.shape else (self, other)
             # memory allocate size of the biggest TODO check the parameter and reference thing
             new_vector = Vector(v.__local_vector.copy())
 
             for ind in range(iterator.shape):
-                new_vector[ind] = self[ind] + element[ind]
+                new_vector[ind] = self[ind] + other[ind]
 
             return new_vector
 
@@ -54,6 +59,24 @@ class Vector:
 
             for ind in range(iterator.shape):
                 new_vector[ind] = self[ind] - other[ind]
+
+            return new_vector
+
+        raise Exception('Element type is not supported')
+
+    def __mul__(self, other):
+        if uL.isNumber(other):
+            return Vector([
+                i * other for i in self
+            ])
+
+        if isinstance(other, self.__class__):
+            v, iterator = (other, self) if other.shape > self.shape else (self, other)
+            # memory allocate size of the biggest TODO check the parameter and reference thing
+            new_vector = Vector(v.__local_vector.copy())
+
+            for ind in range(iterator.shape):
+                new_vector[ind] = self[ind] * other[ind]
 
             return new_vector
 
@@ -85,6 +108,13 @@ class Vector:
 
     def __len__(self) -> int:
         return self.shape
+
+    def getIteratorNewVectorPair(self, other) -> tuple:
+        v, iterator = (other, self) if other.shape > self.shape else (self, other)
+        # memory allocate size of the biggest TODO check the parameter and reference thing
+        new_vector = Vector(v.__local_vector.copy())
+
+        return iterator, new_vector
 
     @property
     def shape(self):
