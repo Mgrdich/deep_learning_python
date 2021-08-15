@@ -7,8 +7,8 @@ from util.Util_lib import Util_Lib as uL
 
 class Vector:
     def __init__(self, iterator: Union[List, tuple, dict]):
-        self.__local_vector = []
-        self.__length = 0
+        self.__local_vector: List = []
+        self.__length: int = 0
 
         if not uL.isIterable(iterator):
             raise Exception('Parameter must by an iterator object')
@@ -85,7 +85,14 @@ class Vector:
 
         raise Exception('Element type is not supported')
 
-    def __eq__(self, other: Vector) -> bool:
+    def __eq__(self, other: Vector) -> List:
+        # TODO
+        pass
+
+    def __ceil__(self) -> Vector:
+        pass
+
+    def __floor__(self) -> Vector:
         pass
 
     def __getitem__(self, key: int) -> Union[int, float]:
@@ -123,25 +130,38 @@ class Vector:
 
         raise Exception('Element type is not supported')
 
-    def sum_of_squares(self):
-        return self.dot(self)
+    def sum_of_squares_with(self, other: Vector) -> Union[int, float]:
+        self.shape_validation(other)
+        return self.dot(other)
 
-    def shape_validation(self, other):
+    def squared_distance(self, other: Vector) -> Union[int, float]:
+        self.shape_validation(other)
+        return self.sum_of_squares_with(self - other)
+
+    def distance(self, other: Vector) -> Union[int, float]:
+        self.shape_validation(other)
+        return math.sqrt(self.sum_of_squares_with(other))
+
+    def shape_validation(self, other: Vector):
         # TODO maybe decorator
         if self.shape != other.shape:
             raise Exception('Two Vectors not of the same shape')
 
     @property
-    def shape(self):
+    def shape(self) -> int:
         return self.__length
 
     @property
-    def vector(self):
+    def vector(self) -> List:
         return self.__local_vector
 
     @property
-    def magnitude(self):
-        return math.sqrt(self.sum_of_squares())
+    def sum_of_squares(self) -> Union[int, float]:
+        return self.dot(self)
+
+    @property
+    def magnitude(self) -> Union[int, float]:
+        return math.sqrt(self.sum_of_squares)
 
 
 class Matrix:
