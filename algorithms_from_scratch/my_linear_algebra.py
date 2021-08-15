@@ -33,9 +33,10 @@ class Vector:
             ])
 
         if isinstance(other, self.__class__):
-            new_vector, iterator = self.getNewVectorIteratorPair(other)
+            # Creates a new vector and allocate memory
+            new_vector = Vector([0] * self.shape)
 
-            for ind in range(iterator.shape):
+            for ind in range(self.shape):
                 new_vector[ind] = self[ind] + other[ind]
 
             return new_vector
@@ -49,9 +50,10 @@ class Vector:
             ])
 
         if isinstance(other, self.__class__):
-            new_vector, iterator = self.getNewVectorIteratorPair(other)
+            # Creates a new vector and allocate memory
+            new_vector = Vector([0] * self.shape)
 
-            for ind in range(iterator.shape):
+            for ind in range(self.shape):
                 new_vector[ind] = self[ind] - other[ind]
 
             return new_vector
@@ -65,9 +67,10 @@ class Vector:
             ])
 
         if isinstance(other, self.__class__):
-            new_vector, iterator = self.getNewVectorIteratorPair(other)
+            # Creates a new vector and allocate memory
+            new_vector = Vector([0] * self.shape)
 
-            for ind in range(iterator.shape):
+            for ind in range(self.shape):
                 new_vector[ind] = self[ind] * other[ind]
 
             return new_vector
@@ -108,20 +111,6 @@ class Vector:
 
         raise Exception('Element type is not supported')
 
-    def getNewVectorIteratorPairSm(self, other):
-        iterator, v = (other, self) if other.shape > self.shape else (self, other)
-        # memory allocate smaller iterator
-        new_vector = Vector(v.__local_vector.copy())
-        return new_vector, iterator
-
-    def getNewVectorIteratorPair(self, other) -> tuple:
-        v, iterator = (other, self) if other.shape > self.shape else (self, other)
-        # memory allocate size of the biggest iterator
-        # TODO check the parameter and reference thing
-        new_vector = Vector(v.__local_vector.copy())
-
-        return new_vector, iterator
-
     @property
     def shape(self):
         return self.__length
@@ -137,11 +126,3 @@ class Matrix:
 
     def __add__(self, other):
         pass
-
-
-ss = Vector([1, 2])
-ss1 = Vector([1, 2])
-
-# a = ss + 10
-#
-# print(a.vector)
