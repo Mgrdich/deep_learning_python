@@ -33,6 +33,9 @@ class Vector:
             ])
 
         if isinstance(other, self.__class__):
+            if self.shape != other.shape:
+                raise Exception('Two Vectors not of the same shape')
+
             # Creates a new vector and allocate memory
             new_vector = Vector([0] * self.shape)
 
@@ -50,6 +53,9 @@ class Vector:
             ])
 
         if isinstance(other, self.__class__):
+            if self.shape != other.shape:
+                raise Exception('Two Vectors not of the same shape')
+
             # Creates a new vector and allocate memory
             new_vector = Vector([0] * self.shape)
 
@@ -67,6 +73,9 @@ class Vector:
             ])
 
         if isinstance(other, self.__class__):
+            if self.shape != other.shape:
+                raise Exception('Two Vectors not of the same shape')
+
             # Creates a new vector and allocate memory
             new_vector = Vector([0] * self.shape)
 
