@@ -93,7 +93,7 @@ class Vector:
         pass
 
     def __floor__(self) -> Vector:
-        pass
+        return Vector([math.floor(i) for i in self])
 
     def __getitem__(self, key: int) -> Union[int, float]:
         if key >= self.shape:
