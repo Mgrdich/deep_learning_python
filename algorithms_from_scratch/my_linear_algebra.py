@@ -90,7 +90,7 @@ class Vector:
         pass
 
     def __ceil__(self) -> Vector:
-        pass
+        return Vector([math.ceil(i) for i in self])
 
     def __floor__(self) -> Vector:
         return Vector([math.floor(i) for i in self])
