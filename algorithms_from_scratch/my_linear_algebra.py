@@ -85,9 +85,8 @@ class Vector:
 
         raise Exception('Element type is not supported')
 
-    def __eq__(self, other: Vector) -> List:
-        # TODO
-        pass
+    def __eq__(self, other: Vector) -> Vector:
+        return Vector([self[i] == other[i] for i in range(self.shape)])
 
     def __ceil__(self) -> Vector:
         return Vector([math.ceil(i) for i in self])
