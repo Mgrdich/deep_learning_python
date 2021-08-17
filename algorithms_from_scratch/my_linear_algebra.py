@@ -88,16 +88,16 @@ class Vector:
     def __eq__(self, other: Vector) -> Vector:
         return Vector([self[i] == other[i] for i in range(self.shape)])
 
-    def __gt__(self, other):
+    def __gt__(self, other: Vector) -> Vector:
         pass
 
-    def __ge__(self, other):
+    def __ge__(self, other: Vector) -> Vector:
         pass
 
-    def __lt__(self, other):
+    def __lt__(self, other: Vector) -> Vector:
         pass
 
-    def __le__(self, other):
+    def __le__(self, other: Vector) -> Vector:
         pass
 
     def __ceil__(self) -> Vector:
