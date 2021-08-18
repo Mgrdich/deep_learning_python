@@ -5,7 +5,7 @@ from typing import Union, List
 from util.Util_lib import Util_Lib as uL
 
 
-def vector_shape_validation(function):
+def vector_other_validation(function):
     def wrapper(*args):
         if not isinstance(args[1], Vector):
             raise Exception('The parameter Not Vector Type')
@@ -47,7 +47,9 @@ class Vector:
             ])
 
         if isinstance(other, self.__class__):
-            self.shape_validation(other)
+
+            if self.shape != other.shape:
+                raise Exception('Two Vectors not of the same shape')
 
             # Creates a new vector and allocate memory
             new_vector = Vector([0] * self.shape)
@@ -66,7 +68,9 @@ class Vector:
             ])
 
         if isinstance(other, self.__class__):
-            self.shape_validation(other)
+
+            if self.shape != other.shape:
+                raise Exception('Two Vectors not of the same shape')
 
             # Creates a new vector and allocate memory
             new_vector = Vector([0] * self.shape)
@@ -85,7 +89,9 @@ class Vector:
             ])
 
         if isinstance(other, self.__class__):
-            self.shape_validation(other)
+
+            if self.shape != other.shape:
+                raise Exception('Two Vectors not of the same shape')
 
             # Creates a new vector and allocate memory
             new_vector = Vector([0] * self.shape)
@@ -97,27 +103,33 @@ class Vector:
 
         raise Exception('Element type is not supported')
 
-    @vector_shape_validation
+    def __truediv__(self, other):
+        pass
+
+    def __floordiv__(self, other):
+        pass
+
+    @vector_other_validation
     def __eq__(self, other: Vector) -> Vector:
         return Vector([self[i] == other[i] for i in range(self.shape)])
 
-    @vector_shape_validation
+    @vector_other_validation
     def __ne__(self, other: Vector) -> Vector:
         return Vector([self[i] != other[i] for i in range(self.shape)])
 
-    @vector_shape_validation
+    @vector_other_validation
     def __gt__(self, other: Vector) -> Vector:
         return Vector([self[i] > other[i] for i in range(self.shape)])
 
-    @vector_shape_validation
+    @vector_other_validation
     def __ge__(self, other: Vector) -> Vector:
         return Vector([self[i] >= other[i] for i in range(self.shape)])
 
-    @vector_shape_validation
+    @vector_other_validation
     def __lt__(self, other: Vector) -> Vector:
         return Vector([self[i] < other[i] for i in range(self.shape)])
 
-    @vector_shape_validation
+    @vector_other_validation
     def __le__(self, other: Vector) -> Vector:
         return Vector([self[i] <= other[i] for i in range(self.shape)])
 
@@ -154,30 +166,21 @@ class Vector:
     def __len__(self) -> int:
         return self.shape
 
+    @vector_other_validation
     def dot(self, other: Vector) -> Union[int, float]:
-        if isinstance(other, self.__class__):
-            self.shape_validation(other)
+        return sum(self * other)
 
-            return sum(self * other)
-
-        raise Exception('Element type is not supported')
-
+    @vector_other_validation
     def sum_of_squares_with(self, other: Vector) -> Union[int, float]:
-        self.shape_validation(other)
         return self.dot(other)
 
+    @vector_other_validation
     def squared_distance(self, other: Vector) -> Union[int, float]:
-        self.shape_validation(other)
         return self.sum_of_squares_with(self - other)
 
+    @vector_other_validation
     def distance(self, other: Vector) -> Union[int, float]:
-        self.shape_validation(other)
         return math.sqrt(self.sum_of_squares_with(other))
-
-    def shape_validation(self, other: Vector):
-        # TODO maybe decorator
-        if self.shape != other.shape:
-            raise Exception('Two Vectors not of the same shape')
 
     @property
     def shape(self) -> int:
