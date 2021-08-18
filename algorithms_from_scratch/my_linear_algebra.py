@@ -103,10 +103,10 @@ class Vector:
 
         raise Exception('Element type is not supported')
 
-    def __truediv__(self, other):
+    def __truediv__(self, other: Union[int, float, Vector]) -> Vector:
         pass
 
-    def __floordiv__(self, other):
+    def __floordiv__(self, other: Union[int, float, Vector]) -> Vector:
         pass
 
     @vector_other_validation
