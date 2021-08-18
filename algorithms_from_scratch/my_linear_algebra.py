@@ -5,6 +5,19 @@ from typing import Union, List
 from util.Util_lib import Util_Lib as uL
 
 
+def vector_shape_validation(function):
+    def wrapper(*args):
+        if not isinstance(args[1], Vector):
+            raise Exception('The parameter Not Vector Type')
+
+        if args[0].shape != args[1].shape:
+            raise Exception('Two Vectors not of the same shape')
+
+        return function(*args)
+
+    return wrapper
+
+
 class Vector:
     def __init__(self, iterator: Union[List, tuple, dict]):
         self.__local_vector: List = []
@@ -84,28 +97,28 @@ class Vector:
 
         raise Exception('Element type is not supported')
 
+    @vector_shape_validation
     def __eq__(self, other: Vector) -> Vector:
-        self.shape_validation(other)
         return Vector([self[i] == other[i] for i in range(self.shape)])
 
+    @vector_shape_validation
     def __ne__(self, other: Vector) -> Vector:
-        self.shape_validation(other)
         return Vector([self[i] != other[i] for i in range(self.shape)])
 
+    @vector_shape_validation
     def __gt__(self, other: Vector) -> Vector:
-        self.shape_validation(other)
         return Vector([self[i] > other[i] for i in range(self.shape)])
 
+    @vector_shape_validation
     def __ge__(self, other: Vector) -> Vector:
-        self.shape_validation(other)
         return Vector([self[i] >= other[i] for i in range(self.shape)])
 
+    @vector_shape_validation
     def __lt__(self, other: Vector) -> Vector:
-        self.shape_validation(other)
         return Vector([self[i] < other[i] for i in range(self.shape)])
 
+    @vector_shape_validation
     def __le__(self, other: Vector) -> Vector:
-        self.shape_validation(other)
         return Vector([self[i] <= other[i] for i in range(self.shape)])
 
     def __ceil__(self) -> Vector:
