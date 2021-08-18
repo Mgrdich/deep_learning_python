@@ -86,19 +86,24 @@ class Vector:
         raise Exception('Element type is not supported')
 
     def __eq__(self, other: Vector) -> Vector:
+        self.shape_validation(other)
         return Vector([self[i] == other[i] for i in range(self.shape)])
 
     def __gt__(self, other: Vector) -> Vector:
-        pass
+        self.shape_validation(other)
+        return Vector([])
 
     def __ge__(self, other: Vector) -> Vector:
-        pass
+        self.shape_validation(other)
+        return Vector([])
 
     def __lt__(self, other: Vector) -> Vector:
-        pass
+        self.shape_validation(other)
+        return Vector([])
 
     def __le__(self, other: Vector) -> Vector:
-        pass
+        self.shape_validation(other)
+        return Vector([])
 
     def __ceil__(self) -> Vector:
         return Vector([math.ceil(i) for i in self])
@@ -181,3 +186,7 @@ class Matrix:
 
     def __add__(self, other):
         pass
+
+
+
+ss1 = Vector([1,2,3])
