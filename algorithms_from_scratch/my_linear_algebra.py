@@ -18,10 +18,9 @@ class Vector:
 
         iterator = iterator.copy()
 
-        # TODO check all the elements are numbers
         for elem in iterator:
             if not uL.isNumber(elem):
-                raise Exception('Not all parameters are Numbers')
+                raise Exception('Not all of excepted type')
 
             self.__local_vector.append(elem)
 
@@ -89,21 +88,25 @@ class Vector:
         self.shape_validation(other)
         return Vector([self[i] == other[i] for i in range(self.shape)])
 
+    def __ne__(self, other: Vector) -> Vector:
+        self.shape_validation(other)
+        return Vector([self[i] != other[i] for i in range(self.shape)])
+
     def __gt__(self, other: Vector) -> Vector:
         self.shape_validation(other)
-        return Vector([])
+        return Vector([self[i] > other[i] for i in range(self.shape)])
 
     def __ge__(self, other: Vector) -> Vector:
         self.shape_validation(other)
-        return Vector([])
+        return Vector([self[i] >= other[i] for i in range(self.shape)])
 
     def __lt__(self, other: Vector) -> Vector:
         self.shape_validation(other)
-        return Vector([])
+        return Vector([self[i] < other[i] for i in range(self.shape)])
 
     def __le__(self, other: Vector) -> Vector:
         self.shape_validation(other)
-        return Vector([])
+        return Vector([self[i] <= other[i] for i in range(self.shape)])
 
     def __ceil__(self) -> Vector:
         return Vector([math.ceil(i) for i in self])
@@ -188,5 +191,9 @@ class Matrix:
         pass
 
 
+s = Vector([True])
 
-ss1 = Vector([1,2,3])
+ss1 = Vector([1, 2, 3])
+ss2 = Vector([3, 4, 5])
+ss3 = Vector([3, 4, 9])
+ss4 = Vector([3, 4])
