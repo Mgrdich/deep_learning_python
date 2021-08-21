@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import math
-from typing import Union, Callable
+from typing import Union, Callable, List
 from util.Util_lib import Util_Lib as uL
 from util.typings import NUMBER, ITERABLE
 
@@ -58,27 +58,27 @@ class Vector:
 
     @vector_other_validation
     def __eq__(self, other: Vector) -> Vector:
-        return Vector([self[i] == other[i] for i in range(self.shape)])
+        return self.__element_condition_operator(other, lambda i, j: i == j)
 
     @vector_other_validation
     def __ne__(self, other: Vector) -> Vector:
-        return Vector([self[i] != other[i] for i in range(self.shape)])
+        return self.__element_condition_operator(other, lambda i, j: i != j)
 
     @vector_other_validation
     def __gt__(self, other: Vector) -> Vector:
-        return Vector([self[i] > other[i] for i in range(self.shape)])
+        return self.__element_condition_operator(other, lambda i, j: i > j)
 
     @vector_other_validation
     def __ge__(self, other: Vector) -> Vector:
-        return Vector([self[i] >= other[i] for i in range(self.shape)])
+        return self.__element_condition_operator(other, lambda i, j: i >= j)
 
     @vector_other_validation
     def __lt__(self, other: Vector) -> Vector:
-        return Vector([self[i] < other[i] for i in range(self.shape)])
+        return self.__element_condition_operator(other, lambda i, j: i < j)
 
     @vector_other_validation
     def __le__(self, other: Vector) -> Vector:
-        return Vector([self[i] <= other[i] for i in range(self.shape)])
+        return self.__element_condition_operator(other, lambda i, j: i <= j)
 
     def __ceil__(self) -> Vector:
         return Vector([math.ceil(i) for i in self])
@@ -172,7 +172,7 @@ class Vector:
 
         raise Exception('Element type is not supported')
 
-    def __element_number_operator(self, other: VECTOR_OR_NUMBER, func: Callable[[NUMBER, NUMBER], NUMBER]) -> Vector:
+    def __element_condition_operator(self, other: VECTOR_OR_NUMBER, func: Callable[[NUMBER, NUMBER], NUMBER]) -> Vector:
         """
         Private function that acts as a helper for one to one vector operations
         :param other: a Number or a Vector
@@ -183,7 +183,7 @@ class Vector:
 
 class Matrix(Vector):
     def __init__(self, iterator: ITERABLE):
-        self.__local_matrix: list = []
+        self.__local_matrix: List[Vector] = []
         self.__shape: tuple = (0, 0)
         pass
 
