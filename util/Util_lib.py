@@ -1,4 +1,4 @@
-from typing import List, Iterable
+from typing import Iterable
 
 
 class Util_Lib:
@@ -36,6 +36,6 @@ class Util_Lib:
         return all(isinstance(ele, list) for ele in element)
 
     @staticmethod
-    def isListEleSameLength(element: List) -> bool:
+    def isListEleSameLength(element: list) -> bool:
         initial_length = len(element[0])  # TODO not tested yet
         return all(initial_length == len(ele) for ele in element)

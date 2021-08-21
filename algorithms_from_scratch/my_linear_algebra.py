@@ -41,7 +41,7 @@ class Vector:
         # len() is O(1) operation
         self.__length = len(self.__local_vector)
 
-    def __add__(self, other: Union[int, float, Vector]) -> Vector:
+    def __add__(self, other: VECTOR_OR_NUMBER) -> Vector:
         if uL.isNumber(other):
             return Vector([
                 i + other for i in self
@@ -62,7 +62,7 @@ class Vector:
 
         raise Exception('Element type is not supported')
 
-    def __sub__(self, other: Union[int, float, Vector]) -> Vector:
+    def __sub__(self, other: VECTOR_OR_NUMBER) -> Vector:
         if uL.isNumber(other):
             return Vector([
                 i - other for i in self
@@ -83,7 +83,7 @@ class Vector:
 
         raise Exception('Element type is not supported')
 
-    def __mul__(self, other: Union[int, float, Vector]) -> Vector:
+    def __mul__(self, other: VECTOR_OR_NUMBER) -> Vector:
         if uL.isNumber(other):
             return Vector([
                 i * other for i in self
@@ -104,7 +104,7 @@ class Vector:
 
         raise Exception('Element type is not supported')
 
-    def __truediv__(self, other: Union[int, float, Vector]) -> Vector:
+    def __truediv__(self, other: VECTOR_OR_NUMBER) -> Vector:
         if uL.isNumber(other):
             return Vector([
                 i / other for i in self
@@ -124,7 +124,7 @@ class Vector:
 
         raise Exception('Element type is not supported')
 
-    def __floordiv__(self, other: Union[int, float, Vector]) -> Vector:
+    def __floordiv__(self, other: VECTOR_OR_NUMBER) -> Vector:
         if uL.isNumber(other):
             return Vector([
                 i // other for i in self
@@ -233,7 +233,7 @@ class Vector:
     def magnitude(self) -> NUMBER:
         return math.sqrt(self.sum_of_squares)
 
-    def __element_operator(self, other: Union[int, float, Vector], func: Callable[[NUMBER, NUMBER], NUMBER]):
+    def __element_operator(self, other: VECTOR_OR_NUMBER, func: Callable[[NUMBER, NUMBER], NUMBER]):
         """
         Private function that acts as a helper for normal arithmetic operations
         :param other: a Number or a Vector
@@ -269,7 +269,7 @@ class Matrix:
 
 
 # TYPINGS
-VECTOR_NUMBER = Union[Vector, NUMBER]
+VECTOR_OR_NUMBER = Union[Vector, NUMBER]
 
 # s = Vector([True])
 # ss1 = Vector([1, 2, 3])
