@@ -81,10 +81,10 @@ class Vector:
         return self.__element_condition_operator(other, lambda i, j: i <= j)
 
     def __ceil__(self) -> Vector:
-        return Vector([math.ceil(i) for i in self])
+        return self.__element_operation(lambda i: math.ceil(i))
 
     def __floor__(self) -> Vector:
-        return Vector([math.floor(i) for i in self])
+        return self.__element_operation(lambda i: math.floor(i))
 
     def __getitem__(self, key: int) -> NUMBER:
         if key >= self.shape:
@@ -177,8 +177,17 @@ class Vector:
         Private function that acts as a helper for one to one vector operations
         :param other: a Number or a Vector
         :param func: must be a pure function that does the operation and returns a Number
+        :return Vector instance
         """
         return Vector([func(self[i], other[i]) for i in range(self.shape)])
+
+    def __element_operation(self, func: Callable[[NUMBER], NUMBER]) -> Vector:
+        """
+        Private function that acts as a helper for one to one vector operations
+        :param func: must be a pure function that does the operation and returns a Number
+        :return Vector instance
+        """
+        return Vector([func(i) for i in self])
 
 
 class Matrix(Vector):
