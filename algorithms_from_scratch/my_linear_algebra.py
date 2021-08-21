@@ -190,11 +190,14 @@ class Vector:
         return Vector([func(i) for i in self])
 
 
-class Matrix(Vector):
+class Matrix:
     def __init__(self, iterator: ITERABLE):
         self.__local_matrix: List[Vector] = []
         self.__shape: tuple = (0, 0)
-        pass
+
+        for i in iterator:
+            vector_element = Vector(i)
+            self.__local_matrix.append(vector_element)
 
     def __add__(self, other):
         pass
@@ -202,6 +205,10 @@ class Matrix(Vector):
     @property
     def shape(self) -> tuple:
         return self.__shape
+
+    @property
+    def matrix(self) -> List[Vector]:
+        return self.__local_matrix
 
 
 # TYPINGS
