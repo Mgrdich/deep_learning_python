@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 import math
-from typing import Union, List, Callable
+from typing import Union, Callable
 from util.Util_lib import Util_Lib as uL
 from util.typings import NUMBER, ITERABLE
 
 
-def vector_other_validation(function):
+def vector_other_validation(function: Callable):
     def wrapper(*args):
         if not isinstance(args[1], Vector):
             raise Exception('The parameter Not Vector Type')
@@ -21,7 +21,7 @@ def vector_other_validation(function):
 
 class Vector:
     def __init__(self, iterator: ITERABLE):
-        self.__local_vector: List = []
+        self.__local_vector: list = []
         self.__length: int = 0
 
         if not uL.isIterable(iterator):
@@ -42,89 +42,19 @@ class Vector:
         self.__length = len(self.__local_vector)
 
     def __add__(self, other: VECTOR_OR_NUMBER) -> Vector:
-        return self.__element_operator(other, lambda i, j: i + j)
+        return self.__element_vector_operator(other, lambda i, j: i + j)
 
     def __sub__(self, other: VECTOR_OR_NUMBER) -> Vector:
-        if uL.isNumber(other):
-            return Vector([
-                i - other for i in self
-            ])
-
-        if isinstance(other, self.__class__):
-
-            if self.shape != other.shape:
-                raise Exception('Two Vectors not of the same shape')
-
-            # Creates a new vector and allocate memory
-            new_vector = Vector([0] * self.shape)
-
-            for ind in range(self.shape):
-                new_vector[ind] = self[ind] - other[ind]
-
-            return new_vector
-
-        raise Exception('Element type is not supported')
+        return self.__element_vector_operator(other, lambda i, j: i - j)
 
     def __mul__(self, other: VECTOR_OR_NUMBER) -> Vector:
-        if uL.isNumber(other):
-            return Vector([
-                i * other for i in self
-            ])
-
-        if isinstance(other, self.__class__):
-
-            if self.shape != other.shape:
-                raise Exception('Two Vectors not of the same shape')
-
-            # Creates a new vector and allocate memory
-            new_vector = Vector([0] * self.shape)
-
-            for ind in range(self.shape):
-                new_vector[ind] = self[ind] * other[ind]
-
-            return new_vector
-
-        raise Exception('Element type is not supported')
+        return self.__element_vector_operator(other, lambda i, j: i * j)
 
     def __truediv__(self, other: VECTOR_OR_NUMBER) -> Vector:
-        if uL.isNumber(other):
-            return Vector([
-                i / other for i in self
-            ])
-
-        if isinstance(other, self.__class__):
-            if self.shape != other.shape:
-                raise Exception('Two Vectors not of the same shape')
-
-            # Creates a new vector and allocate memory
-            new_vector = Vector([0] * self.shape)
-
-            for ind in range(self.shape):
-                new_vector[ind] = self[ind] / other[ind]
-
-            return new_vector
-
-        raise Exception('Element type is not supported')
+        return self.__element_vector_operator(other, lambda i, j: i / j)
 
     def __floordiv__(self, other: VECTOR_OR_NUMBER) -> Vector:
-        if uL.isNumber(other):
-            return Vector([
-                i // other for i in self
-            ])
-
-        if isinstance(other, self.__class__):
-            if self.shape != other.shape:
-                raise Exception('Two Vectors not of the same shape')
-
-            # Creates a new vector and allocate memory
-            new_vector = Vector([0] * self.shape)
-
-            for ind in range(self.shape):
-                new_vector[ind] = self[ind] // other[ind]
-
-            return new_vector
-
-        raise Exception('Element type is not supported')
+        return self.__element_vector_operator(other, lambda i, j: i // j)
 
     @vector_other_validation
     def __eq__(self, other: Vector) -> Vector:
@@ -204,7 +134,7 @@ class Vector:
         return self.__length
 
     @property
-    def vector(self) -> List:
+    def vector(self) -> list:
         return self.__local_vector
 
     @property
@@ -215,7 +145,7 @@ class Vector:
     def magnitude(self) -> NUMBER:
         return math.sqrt(self.sum_of_squares)
 
-    def __element_operator(self, other: VECTOR_OR_NUMBER, func: Callable[[NUMBER, NUMBER], NUMBER])->Vector:
+    def __element_vector_operator(self, other: VECTOR_OR_NUMBER, func: Callable[[NUMBER, NUMBER], NUMBER]) -> Vector:
         """
         Private function that acts as a helper for normal arithmetic operations
         :param other: a Number or a Vector
