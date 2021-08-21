@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 import math
-from typing import Union, List
+from typing import Union, List, Callable
 from util.Util_lib import Util_Lib as uL
+from util.typings import NUMBER
 
 
 def vector_other_validation(function):
@@ -232,6 +233,32 @@ class Vector:
     def magnitude(self) -> Union[int, float]:
         return math.sqrt(self.sum_of_squares)
 
+    def __element_operator(self, other: Union[int, float, Vector], func: Callable[[NUMBER, NUMBER], NUMBER]):
+        """
+        Private function that acts as a helper for normal arithmetic operations
+        :param other: a Number or a Vector
+        :param func: must be a pure function that does the operation and returns a Number
+        """
+        if uL.isNumber(other):
+            return Vector([
+                func(i, other) for i in self
+            ])
+
+        if isinstance(other, self.__class__):
+
+            if self.shape != other.shape:
+                raise Exception('Two Vectors not of the same shape')
+
+            # Creates a new vector and allocate memory
+            new_vector = Vector([0] * self.shape)
+
+            for ind in range(self.shape):
+                new_vector[ind] = func(self[ind], other[ind])
+
+            return new_vector
+
+        raise Exception('Element type is not supported')
+
 
 class Matrix:
     def __init__(self):
@@ -240,8 +267,11 @@ class Matrix:
     def __add__(self, other):
         pass
 
+
+# TYPINGS
+VECTOR_NUMBER = Union[Vector, NUMBER]
+
 # s = Vector([True])
-#
 # ss1 = Vector([1, 2, 3])
 # ss2 = Vector([3, 4, 5])
 # ss3 = Vector([3, 4, 9])
