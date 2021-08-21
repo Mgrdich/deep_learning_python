@@ -3,7 +3,7 @@ from __future__ import annotations
 import math
 from typing import Union, List, Callable
 from util.Util_lib import Util_Lib as uL
-from util.typings import NUMBER
+from util.typings import NUMBER, ITERABLE
 
 
 def vector_other_validation(function):
@@ -20,7 +20,7 @@ def vector_other_validation(function):
 
 
 class Vector:
-    def __init__(self, iterator: Union[List, tuple, dict]):
+    def __init__(self, iterator: ITERABLE):
         self.__local_vector: List = []
         self.__length: int = 0
 
@@ -174,13 +174,13 @@ class Vector:
     def __floor__(self) -> Vector:
         return Vector([math.floor(i) for i in self])
 
-    def __getitem__(self, key: int) -> Union[int, float]:
+    def __getitem__(self, key: int) -> NUMBER:
         if key >= self.shape:
             raise Exception('Vector out of bounds')
 
         return self.__local_vector[key]
 
-    def __setitem__(self, key: int, value: Union[int, float]):
+    def __setitem__(self, key: int, value: NUMBER):
         if key >= self.shape:
             raise Exception('Vector out of bounds')
 
@@ -202,19 +202,19 @@ class Vector:
         return self.shape
 
     @vector_other_validation
-    def dot(self, other: Vector) -> Union[int, float]:
+    def dot(self, other: Vector) -> NUMBER:
         return sum(self * other)
 
     @vector_other_validation
-    def sum_of_squares_with(self, other: Vector) -> Union[int, float]:
+    def sum_of_squares_with(self, other: Vector) -> NUMBER:
         return self.dot(other)
 
     @vector_other_validation
-    def squared_distance(self, other: Vector) -> Union[int, float]:
+    def squared_distance(self, other: Vector) -> NUMBER:
         return self.sum_of_squares_with(self - other)
 
     @vector_other_validation
-    def distance(self, other: Vector) -> Union[int, float]:
+    def distance(self, other: Vector) -> NUMBER:
         return math.sqrt(self.sum_of_squares_with(other))
 
     @property
@@ -226,11 +226,11 @@ class Vector:
         return self.__local_vector
 
     @property
-    def sum_of_squares(self) -> Union[int, float]:
+    def sum_of_squares(self) -> NUMBER:
         return self.dot(self)
 
     @property
-    def magnitude(self) -> Union[int, float]:
+    def magnitude(self) -> NUMBER:
         return math.sqrt(self.sum_of_squares)
 
     def __element_operator(self, other: Union[int, float, Vector], func: Callable[[NUMBER, NUMBER], NUMBER]):
