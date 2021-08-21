@@ -42,25 +42,7 @@ class Vector:
         self.__length = len(self.__local_vector)
 
     def __add__(self, other: VECTOR_OR_NUMBER) -> Vector:
-        if uL.isNumber(other):
-            return Vector([
-                i + other for i in self
-            ])
-
-        if isinstance(other, self.__class__):
-
-            if self.shape != other.shape:
-                raise Exception('Two Vectors not of the same shape')
-
-            # Creates a new vector and allocate memory
-            new_vector = Vector([0] * self.shape)
-
-            for ind in range(self.shape):
-                new_vector[ind] = self[ind] + other[ind]
-
-            return new_vector
-
-        raise Exception('Element type is not supported')
+        return self.__element_operator(other, lambda i, j: i + j)
 
     def __sub__(self, other: VECTOR_OR_NUMBER) -> Vector:
         if uL.isNumber(other):
@@ -233,7 +215,7 @@ class Vector:
     def magnitude(self) -> NUMBER:
         return math.sqrt(self.sum_of_squares)
 
-    def __element_operator(self, other: VECTOR_OR_NUMBER, func: Callable[[NUMBER, NUMBER], NUMBER]):
+    def __element_operator(self, other: VECTOR_OR_NUMBER, func: Callable[[NUMBER, NUMBER], NUMBER])->Vector:
         """
         Private function that acts as a helper for normal arithmetic operations
         :param other: a Number or a Vector
@@ -271,8 +253,8 @@ class Matrix:
 # TYPINGS
 VECTOR_OR_NUMBER = Union[Vector, NUMBER]
 
-# s = Vector([True])
-# ss1 = Vector([1, 2, 3])
-# ss2 = Vector([3, 4, 5])
-# ss3 = Vector([3, 4, 9])
-# ss4 = Vector([3, 4])
+s = Vector([True])
+ss1 = Vector([1, 2, 3])
+ss2 = Vector([3, 4, 5])
+ss3 = Vector([3, 4, 9])
+ss4 = Vector([3, 4])
