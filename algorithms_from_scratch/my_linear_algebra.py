@@ -104,10 +104,44 @@ class Vector:
         raise Exception('Element type is not supported')
 
     def __truediv__(self, other: Union[int, float, Vector]) -> Vector:
-        pass
+        if uL.isNumber(other):
+            return Vector([
+                i / other for i in self
+            ])
+
+        if isinstance(other, self.__class__):
+            if self.shape != other.shape:
+                raise Exception('Two Vectors not of the same shape')
+
+            # Creates a new vector and allocate memory
+            new_vector = Vector([0] * self.shape)
+
+            for ind in range(self.shape):
+                new_vector[ind] = self[ind] / other[ind]
+
+            return new_vector
+
+        raise Exception('Element type is not supported')
 
     def __floordiv__(self, other: Union[int, float, Vector]) -> Vector:
-        pass
+        if uL.isNumber(other):
+            return Vector([
+                i // other for i in self
+            ])
+
+        if isinstance(other, self.__class__):
+            if self.shape != other.shape:
+                raise Exception('Two Vectors not of the same shape')
+
+            # Creates a new vector and allocate memory
+            new_vector = Vector([0] * self.shape)
+
+            for ind in range(self.shape):
+                new_vector[ind] = self[ind] // other[ind]
+
+            return new_vector
+
+        raise Exception('Element type is not supported')
 
     @vector_other_validation
     def __eq__(self, other: Vector) -> Vector:
@@ -205,7 +239,6 @@ class Matrix:
 
     def __add__(self, other):
         pass
-
 
 # s = Vector([True])
 #
