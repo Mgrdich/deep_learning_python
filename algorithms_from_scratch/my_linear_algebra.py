@@ -150,6 +150,7 @@ class Vector:
         Private function that acts as a helper for normal arithmetic operations
         :param other: a Number or a Vector
         :param func: must be a pure function that does the operation and returns a Number
+        :return Vector instance
         """
         if uL.isNumber(other):
             return Vector([
@@ -171,20 +172,38 @@ class Vector:
 
         raise Exception('Element type is not supported')
 
+    def __element_number_operator(self, other: VECTOR_OR_NUMBER, func: Callable[[NUMBER, NUMBER], NUMBER]) -> Vector:
+        """
+        Private function that acts as a helper for one to one vector operations
+        :param other: a Number or a Vector
+        :param func: must be a pure function that does the operation and returns a Number
+        """
+        return Vector([func(self[i], other[i]) for i in range(self.shape)])
 
-class Matrix:
-    def __init__(self):
+
+class Matrix(Vector):
+    def __init__(self, iterator: ITERABLE):
+        self.__local_matrix: list = []
+        self.__shape: tuple = (0, 0)
         pass
 
     def __add__(self, other):
         pass
 
+    @property
+    def shape(self) -> tuple:
+        return self.__shape
+
 
 # TYPINGS
 VECTOR_OR_NUMBER = Union[Vector, NUMBER]
 
-s = Vector([True])
-ss1 = Vector([1, 2, 3])
-ss2 = Vector([3, 4, 5])
-ss3 = Vector([3, 4, 9])
-ss4 = Vector([3, 4])
+#
+# s = Vector([True])
+# ss1 = Vector([1, 2, 3])
+# ss2 = Vector([3, 4, 5])
+# ss3 = Vector([3, 4, 9])
+# ss4 = Vector([3, 4])
+
+
+m = Matrix([[1, 2], [3, 4]])
