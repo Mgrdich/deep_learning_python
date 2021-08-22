@@ -36,6 +36,10 @@ class Util_Lib:
         return all(isinstance(ele, list) for ele in element)
 
     @staticmethod
+    def isNone(element) -> bool:
+        return element is None
+
+    @staticmethod
     def isListEleSameLength(element: list) -> bool:
         initial_length = len(element[0])  # TODO not tested yet
         return all(initial_length == len(ele) for ele in element)

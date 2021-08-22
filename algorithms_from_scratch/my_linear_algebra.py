@@ -193,25 +193,39 @@ class Vector:
 class Matrix:
     def __init__(self, iterator: ITERABLE):
         self.__local_matrix: List[Vector] = []
-        self.__shape: tuple = (0, 0)
+        last_vector_shape = None
 
         for i in iterator:
             vector_element = Vector(i)
+            if not uL.isNone(last_vector_shape) and vector_element.shape != last_vector_shape:
+                raise Exception('Nested Vectors are not of the same length')
+
+            last_vector_shape = vector_element.shape
+
+            self.__shape: tuple = (0, vector_element.shape)
             self.__local_matrix.append(vector_element)
 
+        self.__shape: tuple = (len(self.__local_matrix), last_vector_shape)
+
     def __add__(self, other: MATRIX_OR_NUMBER) -> Matrix:
-        pass
+        return self.__element_matrix_operator(other, lambda i, j: i + j)
 
     def __sub__(self, other: MATRIX_OR_NUMBER) -> Matrix:
-        pass
+        return self.__element_matrix_operator(other, lambda i, j: i - j)
 
     def __mul__(self, other: MATRIX_OR_NUMBER) -> Matrix:
-        pass
+        return self.__element_matrix_operator(other, lambda i, j: i * j)
 
     def __truediv__(self, other: MATRIX_OR_NUMBER) -> Matrix:
-        pass
+        return self.__element_matrix_operator(other, lambda i, j: i / j)
 
     def __floordiv__(self, other: MATRIX_OR_NUMBER) -> Matrix:
+        return self.__element_matrix_operator(other, lambda i, j: i // j)
+
+    def __len(self) -> int:
+        pass
+
+    def __element_matrix_operator(self, other: MATRIX_OR_NUMBER, func: Callable[[NUMBER, NUMBER], NUMBER]) -> Matrix:
         pass
 
     @property
@@ -226,6 +240,7 @@ class Matrix:
 # TYPINGS
 VECTOR_OR_NUMBER = Union[Vector, NUMBER]
 MATRIX_OR_NUMBER = Union[Matrix, NUMBER]
+MATRIX_OR_VECTOR = Union[Matrix, Vector]
 
 #
 # s = Vector([True])
