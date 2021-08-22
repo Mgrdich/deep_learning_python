@@ -120,6 +120,12 @@ class Vector:
     def __len__(self) -> int:
         return self.shape
 
+    def __str__(self):
+        pass
+
+    def __repr__(self):
+        pass
+
     @vector_other_validation
     def dot(self, other: Vector) -> NUMBER:
         return sum(self * other)
@@ -229,9 +235,6 @@ class Matrix:
     def __floordiv__(self, other: MATRIX_OR_NUMBER) -> Matrix:
         return self.__element_matrix_operator(other, lambda i, j: i // j)
 
-    def __len(self) -> int:
-        pass
-
     def __iter__(self):
         self.n = 0
         return self
@@ -262,6 +265,15 @@ class Matrix:
             raise Exception('Vector size not compatible')
 
         self.__local_matrix[key] = value
+
+    def __str__(self):
+        pass
+
+    def __repr__(self):
+        pass
+
+    def __len__(self) -> int:
+        return self.row
 
     def __element_matrix_operator(self, other: MATRIX_OR_NUMBER, func: MATRIX_OPERATOR_CALLBACK) -> Matrix:
         """
