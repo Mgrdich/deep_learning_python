@@ -19,6 +19,7 @@ def vector_other_validation(function: Callable):
     return wrapper
 
 
+# TODO add print overload like numpy
 class Vector:
     def __init__(self, iterator: ITERABLE):
         self.__local_vector: list = []
@@ -85,6 +86,12 @@ class Vector:
 
     def __floor__(self) -> Vector:
         return self.__element_operation(lambda i: math.floor(i))
+
+    def __float__(self) -> Vector:
+        return self.__element_operation(lambda i: float(i))
+
+    def __pow__(self, power, modulo=None) -> Vector:
+        pass
 
     def __getitem__(self, key: int) -> NUMBER:
         if key >= self.shape:
@@ -237,7 +244,26 @@ class Matrix:
         else:
             raise StopIteration
 
-    def __element_matrix_operator(self, other: MATRIX_OR_NUMBER, func: Callable[[NUMBER, NUMBER], NUMBER]) -> Matrix:
+    def __getitem__(self, key: int) -> Vector:
+        # TODO Decorator
+        if key >= self.row:
+            raise Exception('Matrix out of bounds')
+
+        return self.__local_matrix[key]
+
+    def __setitem__(self, key: int, value: Vector):
+        if key >= self.row:
+            raise Exception('Matrix out of bounds')
+
+        if not isinstance(value, Vector):
+            raise Exception('Value is not a Vector')
+
+        if value.shape != self.column:
+            raise Exception('Vector size not compatible')
+
+        self.__local_matrix[key] = value
+
+    def __element_matrix_operator(self, other: MATRIX_OR_NUMBER, func: Callable[[Vector, NUMBER], NUMBER]) -> Matrix:
         """
         Private function that acts as a helper for normal arithmetic operations for Matrix
         :param other: a Number or a Matrix
