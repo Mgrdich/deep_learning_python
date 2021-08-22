@@ -263,14 +263,32 @@ class Matrix:
 
         self.__local_matrix[key] = value
 
-    def __element_matrix_operator(self, other: MATRIX_OR_NUMBER, func: Callable[[Vector, NUMBER], NUMBER]) -> Matrix:
+    def __element_matrix_operator(self, other: MATRIX_OR_NUMBER, func: MATRIX_OPERATOR_CALLBACK) -> Matrix:
         """
         Private function that acts as a helper for normal arithmetic operations for Matrix
         :param other: a Number or a Matrix
         :param func: must be a pure function that does the operation and returns a Number
         :return Matrix instance
         """
-        pass
+        if uL.isNumber(other):
+            return Matrix([
+                func(i, other) for i in self
+            ])
+
+        if isinstance(other, self.__class__):
+
+            if self.shape != other.shape:
+                raise Exception('Two Matrices not of the same shape')
+
+            # Creates a new vector and allocate memory
+            new_matrix = Matrix([[0] * self.column] * self.row)
+
+            for ind in range(self.row):
+                new_matrix[ind] = func(self[ind], other[ind])
+
+            return new_matrix
+
+        raise Exception('Element type is not supported')
 
     @property
     def shape(self) -> tuple:
@@ -293,6 +311,7 @@ class Matrix:
 VECTOR_OR_NUMBER = Union[Vector, NUMBER]
 MATRIX_OR_NUMBER = Union[Matrix, NUMBER]
 MATRIX_OR_VECTOR = Union[Matrix, Vector]
+MATRIX_OPERATOR_CALLBACK = Callable[[Vector, VECTOR_OR_NUMBER], Vector]
 
 #
 # s = Vector([True])
