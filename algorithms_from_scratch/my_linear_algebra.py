@@ -102,7 +102,7 @@ class Vector:
         self.n = 0
         return self
 
-    def __next__(self):
+    def __next__(self) -> NUMBER:
         if self.n < self.__length:
             result = self.__local_vector[self.n]
             self.n += 1
@@ -225,7 +225,25 @@ class Matrix:
     def __len(self) -> int:
         pass
 
+    def __iter__(self):
+        self.n = 0
+        return self
+
+    def __next__(self) -> Vector:
+        if self.n < self.row:
+            result = self.__local_matrix[self.n]
+            self.n += 1
+            return result
+        else:
+            raise StopIteration
+
     def __element_matrix_operator(self, other: MATRIX_OR_NUMBER, func: Callable[[NUMBER, NUMBER], NUMBER]) -> Matrix:
+        """
+        Private function that acts as a helper for normal arithmetic operations for Matrix
+        :param other: a Number or a Matrix
+        :param func: must be a pure function that does the operation and returns a Number
+        :return Matrix instance
+        """
         pass
 
     @property
@@ -235,6 +253,14 @@ class Matrix:
     @property
     def matrix(self) -> List[Vector]:
         return self.__local_matrix
+
+    @property
+    def row(self) -> int:
+        return self.__shape[0]
+
+    @property
+    def column(self) -> int:
+        return self.__shape[1]
 
 
 # TYPINGS
