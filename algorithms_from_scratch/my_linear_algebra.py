@@ -199,7 +199,19 @@ class Matrix:
             vector_element = Vector(i)
             self.__local_matrix.append(vector_element)
 
-    def __add__(self, other):
+    def __add__(self, other: MATRIX_OR_NUMBER) -> Matrix:
+        pass
+
+    def __sub__(self, other: MATRIX_OR_NUMBER) -> Matrix:
+        pass
+
+    def __mul__(self, other: MATRIX_OR_NUMBER) -> Matrix:
+        pass
+
+    def __truediv__(self, other: MATRIX_OR_NUMBER) -> Matrix:
+        pass
+
+    def __floordiv__(self, other: MATRIX_OR_NUMBER) -> Matrix:
         pass
 
     @property
@@ -213,6 +225,7 @@ class Matrix:
 
 # TYPINGS
 VECTOR_OR_NUMBER = Union[Vector, NUMBER]
+MATRIX_OR_NUMBER = Union[Matrix, NUMBER]
 
 #
 # s = Vector([True])
