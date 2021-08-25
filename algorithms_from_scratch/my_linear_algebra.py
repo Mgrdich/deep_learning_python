@@ -315,6 +315,8 @@ class Matrix:
                 func(i, other) for i in self
             ])
 
+        # TODO add Vector adding
+
         if isinstance(other, self.__class__):
 
             if self.shape != other.shape:
@@ -329,6 +331,23 @@ class Matrix:
             return new_matrix
 
         raise Exception('Element type is not supported')
+
+    def __element_condition_operator(self, other: Matrix, func: Callable[[NUMBER, NUMBER], NUMBER]) -> Matrix:
+        """
+        Private function that acts as a helper for one to one vector operations
+        :param other: a Number or a Matrix # TODO or a vector ?
+        :param func: must be a pure function that does the operation and returns a Number
+        :return Matrix instance
+        """
+        pass
+
+    def __element_operation(self, func: Callable[[NUMBER], NUMBER]) -> Matrix:
+        """
+        Private function that acts as a helper for one to one vector operations
+        :param func: must be a pure function that does the operation and returns a Number
+        :return Matrix instance
+        """
+        pass
 
     @property
     def shape(self) -> Tuple[int]:
@@ -346,19 +365,20 @@ class Matrix:
 # TYPINGS
 VECTOR_OR_NUMBER = Union[Vector, NUMBER]
 MATRIX_OR_NUMBER = Union[Matrix, NUMBER]
+MATRIX_VECTOR_NUMBER = Union[Matrix, Vector, NUMBER]
 MATRIX_OR_VECTOR = Union[Matrix, Vector]
 MATRIX_OPERATOR_CALLBACK = Callable[[Vector, VECTOR_OR_NUMBER], Vector]
 
 #
 # s = Vector([True])
-ss1 = Vector([1, 2, 3])
+# ss1 = Vector([1, 2, 3])
 # ss2 = Vector([3, 4, 5])
 # ss3 = Vector([3, 4, 9])
 # ss4 = Vector([3, 4])
 
 
-print(ss1)
+# print(ss1)
 
 m = Matrix([[1, 2, 4], [3, 4, 5]])
 
-print(m)
+# print(m)
