@@ -207,7 +207,11 @@ class Matrix:
         last_vector_shape = None
 
         for i in iterator:
-            vector_element = Vector(i)
+            if isinstance(i, Vector):
+                vector_element = i
+            else:
+                vector_element = Vector(i)
+
             if not uL.isNone(last_vector_shape) and vector_element.shape != last_vector_shape:
                 raise Exception('Nested Vectors are not of the same length')
 
@@ -252,16 +256,19 @@ class Matrix:
         pass
 
     def __ceil__(self) -> Matrix:
-        pass
+        return self.__element_operation(lambda i: math.ceil(i))
 
-    def __floor__(self) -> Vector:
-        pass
+    def __floor__(self) -> Matrix:
+        return self.__element_operation(lambda i: math.floor(i))
 
-    def __float__(self) -> Vector:
-        pass
+    def __float__(self) -> Matrix:
+        return self.__element_operation(lambda i: float(i))
 
-    def __pow__(self, power, modulo=None):
-        pass
+    def __pow__(self, power, modulo=None) -> Matrix:
+        if not uL.isNumber(power):
+            raise Exception('power must be a number')
+
+        return self.__element_operation(lambda i: math.pow(i, power))
 
     def __iter__(self):
         self.n = 0
@@ -295,7 +302,7 @@ class Matrix:
         self.__local_matrix[key] = value
 
     def __str__(self) -> str:
-        return "Matrix([{0}])".format(self.__local_matrix)
+        return "Matrix({0})".format(self.__local_matrix)
 
     def __repr__(self) -> str:
         return self.__str__()
@@ -316,6 +323,8 @@ class Matrix:
             ])
 
         # TODO add Vector adding
+        if isinstance(other, Vector):
+            pass
 
         if isinstance(other, self.__class__):
 
@@ -341,13 +350,13 @@ class Matrix:
         """
         pass
 
-    def __element_operation(self, func: Callable[[NUMBER], NUMBER]) -> Matrix:
+    def __element_operation(self, func: Callable[[Vector], NUMBER]) -> Matrix:
         """
         Private function that acts as a helper for one to one vector operations
         :param func: must be a pure function that does the operation and returns a Number
         :return Matrix instance
         """
-        pass
+        return Matrix([func(i) for i in self])
 
     @property
     def shape(self) -> Tuple[int]:
@@ -379,6 +388,5 @@ MATRIX_OPERATOR_CALLBACK = Callable[[Vector, VECTOR_OR_NUMBER], Vector]
 
 # print(ss1)
 
-m = Matrix([[1, 2, 4], [3, 4, 5]])
-
-# print(m)
+# m = Matrix([[1.5, 2.5, 4.7], [3.7, 4.1, 5.1]])
+# m = Matrix([Vector([1, 23]), Vector([23, 6])])
