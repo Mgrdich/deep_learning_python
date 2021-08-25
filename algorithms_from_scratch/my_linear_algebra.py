@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import math
-from typing import Union, Callable, List
+from typing import Union, Callable, List, Tuple
 from util.Util_lib import Util_Lib as uL
 from util.typings import NUMBER, ITERABLE
 
@@ -19,7 +19,6 @@ def vector_other_validation(function: Callable):
     return wrapper
 
 
-# TODO add print overload like numpy
 class Vector:
     def __init__(self, iterator: ITERABLE):
         self.__local_vector: list = []
@@ -90,8 +89,11 @@ class Vector:
     def __float__(self) -> Vector:
         return self.__element_operation(lambda i: float(i))
 
-    def __pow__(self, power, modulo=None) -> Vector:
-        pass
+    def __pow__(self, power: NUMBER, modulo=None) -> Vector:
+        if not uL.isNumber(power):
+            raise Exception('power must be a number')
+
+        return self.__element_operation(lambda i: math.pow(i, power))
 
     def __getitem__(self, key: int) -> NUMBER:
         if key >= self.shape:
@@ -145,10 +147,6 @@ class Vector:
     @property
     def shape(self) -> int:
         return self.__length
-
-    @property
-    def vector(self) -> list:
-        return self.__local_vector
 
     @property
     def sum_of_squares(self) -> NUMBER:
@@ -235,6 +233,36 @@ class Matrix:
     def __floordiv__(self, other: MATRIX_OR_NUMBER) -> Matrix:
         return self.__element_matrix_operator(other, lambda i, j: i // j)
 
+    def __eq__(self, other: Matrix) -> Matrix:
+        pass
+
+    def __ne__(self, other: Matrix) -> Matrix:
+        pass
+
+    def __gt__(self, other: Matrix) -> Matrix:
+        pass
+
+    def __ge__(self, other: Matrix) -> Matrix:
+        pass
+
+    def __lt__(self, other: Matrix) -> Matrix:
+        pass
+
+    def __le__(self, other: Matrix) -> Matrix:
+        pass
+
+    def __ceil__(self) -> Matrix:
+        pass
+
+    def __floor__(self) -> Vector:
+        pass
+
+    def __float__(self) -> Vector:
+        pass
+
+    def __pow__(self, power, modulo=None):
+        pass
+
     def __iter__(self):
         self.n = 0
         return self
@@ -303,12 +331,8 @@ class Matrix:
         raise Exception('Element type is not supported')
 
     @property
-    def shape(self) -> tuple:
+    def shape(self) -> Tuple[int]:
         return self.__shape
-
-    @property
-    def matrix(self) -> List[Vector]:
-        return self.__local_matrix
 
     @property
     def row(self) -> int:
