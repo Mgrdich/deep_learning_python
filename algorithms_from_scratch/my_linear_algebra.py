@@ -121,10 +121,10 @@ class Vector:
         return self.shape
 
     def __str__(self):
-        pass
+        return "Vector({0})".format(self.__local_vector)
 
     def __repr__(self):
-        pass
+        return self.__str__()
 
     @vector_other_validation
     def dot(self, other: Vector) -> NUMBER:
@@ -266,11 +266,11 @@ class Matrix:
 
         self.__local_matrix[key] = value
 
-    def __str__(self):
-        pass
+    def __str__(self) -> str:
+        return "Matrix([{0}])".format(self.__local_matrix)
 
-    def __repr__(self):
-        pass
+    def __repr__(self) -> str:
+        return self.__str__()
 
     def __len__(self) -> int:
         return self.row
@@ -327,10 +327,14 @@ MATRIX_OPERATOR_CALLBACK = Callable[[Vector, VECTOR_OR_NUMBER], Vector]
 
 #
 # s = Vector([True])
-# ss1 = Vector([1, 2, 3])
+ss1 = Vector([1, 2, 3])
 # ss2 = Vector([3, 4, 5])
 # ss3 = Vector([3, 4, 9])
 # ss4 = Vector([3, 4])
 
 
-m = Matrix([[1, 2], [3, 4]])
+print(ss1)
+
+m = Matrix([[1, 2, 4], [3, 4, 5]])
+
+print(m)
