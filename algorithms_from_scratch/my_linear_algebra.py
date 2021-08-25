@@ -19,6 +19,7 @@ def vector_other_validation(function: Callable):
     return wrapper
 
 
+# TODO move the decorator into the general function much better
 class Vector:
     def __init__(self, iterator: ITERABLE):
         self.__local_vector: list = []
@@ -107,7 +108,7 @@ class Vector:
 
         self.__local_vector[key] = value
 
-    def __iter__(self):
+    def __iter__(self) -> Vector:
         self.n = 0
         return self
 
@@ -122,10 +123,10 @@ class Vector:
     def __len__(self) -> int:
         return self.shape
 
-    def __str__(self):
+    def __str__(self) -> str:
         return "Vector({0})".format(self.__local_vector)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self.__str__()
 
     @vector_other_validation
@@ -202,7 +203,7 @@ class Vector:
 
 
 class Matrix:
-    def __init__(self, iterator: ITERABLE):
+    def __init__(self, iterator: ITERABLE[Vector, ITERABLE]):
         self.__local_matrix: List[Vector] = []
         last_vector_shape = None
 
@@ -270,7 +271,7 @@ class Matrix:
 
         return self.__element_operation(lambda i: math.pow(i, power))
 
-    def __iter__(self):
+    def __iter__(self) -> Matrix:
         self.n = 0
         return self
 
@@ -388,5 +389,5 @@ MATRIX_OPERATOR_CALLBACK = Callable[[Vector, VECTOR_OR_NUMBER], Vector]
 
 # print(ss1)
 
-# m = Matrix([[1.5, 2.5, 4.7], [3.7, 4.1, 5.1]])
-# m = Matrix([Vector([1, 23]), Vector([23, 6])])
+m = Matrix([[1.5, 2.5, 4.7], [3.7, 4.1, 5.1]])
+m2 = Matrix([Vector([1, 23]), Vector([23, 6])])
