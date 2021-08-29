@@ -57,27 +57,21 @@ class Vector:
     def __floordiv__(self, other: VECTOR_OR_NUMBER) -> Vector:
         return self.__element_vector_operator(other, lambda i, j: i // j)
 
-    @vector_other_validation
     def __eq__(self, other: Vector) -> Vector:
         return self.__element_condition_operator(other, lambda i, j: i == j)
 
-    @vector_other_validation
     def __ne__(self, other: Vector) -> Vector:
         return self.__element_condition_operator(other, lambda i, j: i != j)
 
-    @vector_other_validation
     def __gt__(self, other: Vector) -> Vector:
         return self.__element_condition_operator(other, lambda i, j: i > j)
 
-    @vector_other_validation
     def __ge__(self, other: Vector) -> Vector:
         return self.__element_condition_operator(other, lambda i, j: i >= j)
 
-    @vector_other_validation
     def __lt__(self, other: Vector) -> Vector:
         return self.__element_condition_operator(other, lambda i, j: i < j)
 
-    @vector_other_validation
     def __le__(self, other: Vector) -> Vector:
         return self.__element_condition_operator(other, lambda i, j: i <= j)
 
@@ -184,6 +178,7 @@ class Vector:
 
         raise Exception('Element type is not supported')
 
+    @vector_other_validation
     def __element_condition_operator(self, other: VECTOR_OR_NUMBER, func: Callable[[NUMBER, NUMBER], NUMBER]) -> Vector:
         """
         Private function that acts as a helper for one to one vector operations
@@ -389,5 +384,5 @@ MATRIX_OPERATOR_CALLBACK = Callable[[Vector, VECTOR_OR_NUMBER], Vector]
 
 # print(ss1)
 
-m = Matrix([[1.5, 2.5, 4.7], [3.7, 4.1, 5.1]])
-m2 = Matrix([Vector([1, 23]), Vector([23, 6])])
+# m = Matrix([[1.5, 2.5, 4.7], [3.7, 4.1, 5.1]])
+# m2 = Matrix([Vector([1, 23]), Vector([23, 6])])
