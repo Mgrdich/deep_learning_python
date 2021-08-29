@@ -19,7 +19,6 @@ def vector_other_validation(function: Callable):
     return wrapper
 
 
-# TODO move the decorator into the general function much better
 class Vector:
     def __init__(self, iterator: ITERABLE):
         self.__local_vector: list = []
