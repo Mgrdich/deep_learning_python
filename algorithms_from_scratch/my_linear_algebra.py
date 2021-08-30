@@ -145,9 +145,14 @@ class Vector:
     def distance(self, other: Vector) -> NUMBER:
         return math.sqrt(self.sum_of_squares_with(other))
 
+    # TODO rename the property to something else and make shape return tuple
     @property
     def shape(self) -> int:
         return self.__length
+
+    @property
+    def shape_tuple(self) -> tuple:
+        return self.shape,
 
     @property
     def sum_of_squares(self) -> NUMBER:
@@ -324,9 +329,9 @@ class Matrix:
                 func(i, other) for i in self
             ])
 
-        # TODO add Vector adding
         if isinstance(other, Vector):
-            pass
+            if uL.canBroadcast(self.shape, other.shape_tuple):
+                pass
 
         if isinstance(other, self.__class__):
 

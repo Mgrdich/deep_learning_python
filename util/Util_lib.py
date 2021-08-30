@@ -43,3 +43,7 @@ class Util_Lib:
     def isListEleSameLength(element: list) -> bool:
         initial_length = len(element[0])  # TODO not tested yet
         return all(initial_length == len(ele) for ele in element)
+
+    @staticmethod
+    def canBroadcast(shape: tuple, other_shape: tuple) -> bool:
+        pass
