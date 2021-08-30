@@ -245,22 +245,22 @@ class Matrix:
         return self.__element_matrix_operator(other, lambda i, j: i // j)
 
     def __eq__(self, other: Matrix) -> Matrix:
-        pass
+        return self.__element_condition_operator(other, lambda i, j: i == j)
 
     def __ne__(self, other: Matrix) -> Matrix:
-        pass
+        return self.__element_condition_operator(other, lambda i, j: i != j)
 
     def __gt__(self, other: Matrix) -> Matrix:
-        pass
+        return self.__element_condition_operator(other, lambda i, j: i > j)
 
     def __ge__(self, other: Matrix) -> Matrix:
-        pass
+        return self.__element_condition_operator(other, lambda i, j: i >= j)
 
     def __lt__(self, other: Matrix) -> Matrix:
-        pass
+        return self.__element_condition_operator(other, lambda i, j: i < j)
 
     def __le__(self, other: Matrix) -> Matrix:
-        pass
+        return self.__element_condition_operator(other, lambda i, j: i <= j)
 
     def __ceil__(self) -> Matrix:
         return self.__element_operation(lambda i: math.ceil(i))
