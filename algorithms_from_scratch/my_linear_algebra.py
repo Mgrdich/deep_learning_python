@@ -19,6 +19,13 @@ def vector_other_validation(function: Callable):
     return wrapper
 
 
+def matrix_other_validation(function: Callable):
+    def wrapper(*args):
+        return function(*args)
+
+    return wrapper
+
+
 class Vector:
     def __init__(self, iterator: ITERABLE):
         self.__local_vector: list = []
