@@ -3,7 +3,7 @@ from __future__ import annotations
 import math
 from typing import Union, Callable, List, Tuple
 from util.Util_lib import Util_Lib as uL
-from util.typings import NUMBER, ITERABLE
+from util.typings import NUMBER, ITERABLE, NUMBER_OR_ITERABLE
 
 
 def vector_other_validation(function: Callable):
@@ -144,6 +144,12 @@ class Vector:
     @vector_other_validation
     def distance(self, other: Vector) -> NUMBER:
         return math.sqrt(self.sum_of_squares_with(other))
+
+    def append(self, value: VECTOR_OR_NUMBER_OR_ITERABLE):
+        pass
+
+    def insert_at(self, value: VECTOR_OR_NUMBER_OR_ITERABLE, index: int):
+        pass
 
     @property
     def max(self) -> NUMBER:
@@ -393,6 +399,7 @@ class Matrix:
 
 # TYPINGS
 VECTOR_OR_NUMBER = Union[Vector, NUMBER]
+VECTOR_OR_NUMBER_OR_ITERABLE = Union[Vector, NUMBER_OR_ITERABLE]
 MATRIX_OR_NUMBER = Union[Matrix, NUMBER]
 MATRIX_VECTOR_NUMBER = Union[Matrix, Vector, NUMBER]
 MATRIX_OR_VECTOR = Union[Matrix, Vector]
@@ -401,7 +408,7 @@ MATRIX_OPERATOR_CALLBACK = Callable[[Vector, VECTOR_OR_NUMBER], Vector]
 #
 # s = Vector([True])
 # ss1 = Vector([1, 2, 3])
-# ss2 = Vector([3, 4, 5])
+ss2 = Vector([3, 4, 5])
 # ss3 = Vector([3, 4, 9])
 # ss4 = Vector([3, 4])
 
