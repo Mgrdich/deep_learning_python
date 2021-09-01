@@ -168,6 +168,11 @@ class Vector:
     def magnitude(self) -> NUMBER:
         return math.sqrt(self.sum_of_squares)
 
+    @staticmethod
+    def rand_int(length: int, start: int, end: int) -> Vector:
+        # TODO add a random int function
+        return Vector([])
+
     def __element_vector_operator(self, other: VECTOR_OR_NUMBER, func: Callable[[NUMBER, NUMBER], NUMBER]) -> Vector:
         """
         Private function that acts as a helper for normal arithmetic operations
@@ -212,11 +217,6 @@ class Vector:
         :return Vector instance
         """
         return Vector([func(i) for i in self])
-
-    @staticmethod
-    def rand_int(length: int, start: int, end: int) -> Vector:
-        # TODO add a random int function
-        return Vector([])
 
 
 class Matrix:
