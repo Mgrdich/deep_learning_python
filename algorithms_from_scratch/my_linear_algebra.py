@@ -151,14 +151,6 @@ class Vector:
     def insert_at(self, value: VECTOR_OR_NUMBER_OR_ITERABLE, index: int):
         pass
 
-    @property
-    def max(self) -> NUMBER:
-        return max(self)
-
-    @property
-    def min(self) -> NUMBER:
-        return min(self)
-
     # TODO rename the property to something else and make shape return tuple
     @property
     def shape(self) -> int:
