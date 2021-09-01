@@ -145,6 +145,14 @@ class Vector:
     def distance(self, other: Vector) -> NUMBER:
         return math.sqrt(self.sum_of_squares_with(other))
 
+    @property
+    def max(self) -> NUMBER:
+        return max(self)
+
+    @property
+    def min(self) -> NUMBER:
+        return min(self)
+
     # TODO rename the property to something else and make shape return tuple
     @property
     def shape(self) -> int:
@@ -206,6 +214,11 @@ class Vector:
         :return Vector instance
         """
         return Vector([func(i) for i in self])
+
+    @staticmethod
+    def rand_int(length: int, start: int, end: int) -> Vector:
+        # TODO add a random int function
+        return Vector([])
 
 
 class Matrix:
