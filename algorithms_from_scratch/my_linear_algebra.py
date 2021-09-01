@@ -328,6 +328,26 @@ class Matrix:
     def __len__(self) -> int:
         return self.row
 
+    @property
+    def shape(self) -> Tuple[int]:
+        return self.__shape
+
+    @property
+    def row(self) -> int:
+        return self.__shape[0]
+
+    @property
+    def column(self) -> int:
+        return self.__shape[1]
+
+    @staticmethod
+    def ones(shape: tuple) -> Matrix:
+        pass
+
+    @staticmethod
+    def eyes(shape: tuple) -> Matrix:
+        pass
+
     def __element_matrix_operator(self, other: MATRIX_OR_NUMBER, func: MATRIX_OPERATOR_CALLBACK) -> Matrix:
         """
         Private function that acts as a helper for normal arithmetic operations for Matrix
@@ -375,18 +395,6 @@ class Matrix:
         :return Matrix instance
         """
         return Matrix([func(i) for i in self])
-
-    @property
-    def shape(self) -> Tuple[int]:
-        return self.__shape
-
-    @property
-    def row(self) -> int:
-        return self.__shape[0]
-
-    @property
-    def column(self) -> int:
-        return self.__shape[1]
 
 
 # TYPINGS
