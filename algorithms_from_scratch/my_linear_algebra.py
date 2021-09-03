@@ -408,7 +408,7 @@ MATRIX_OPERATOR_CALLBACK = Callable[[Vector, VECTOR_OR_NUMBER], Vector]
 #
 # s = Vector([True])
 # ss1 = Vector([1, 2, 3])
-ss2 = Vector([3, 4, 5])
+# ss2 = Vector([3, 4, 5])
 # ss3 = Vector([3, 4, 9])
 # ss4 = Vector([3, 4])
 
