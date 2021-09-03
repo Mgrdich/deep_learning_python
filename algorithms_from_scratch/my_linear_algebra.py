@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import math
+from random import randint
 from typing import Union, Callable, List, Tuple
 from util.Util_lib import Util_Lib as uL
 from util.typings import NUMBER, ITERABLE, NUMBER_OR_ITERABLE
@@ -146,10 +147,21 @@ class Vector:
         return math.sqrt(self.sum_of_squares_with(other))
 
     def append(self, value: VECTOR_OR_NUMBER_OR_ITERABLE):
-        pass
+        if not uL.isNumber(value):
+            raise Exception('Not excepted type')
+
+        self.__local_vector.append(value)
+        # len() is O(1) operation
+        self.__length = len(self.__local_vector)
 
     def insert_at(self, value: VECTOR_OR_NUMBER_OR_ITERABLE, index: int):
-        pass
+        if not uL.isNumber(value):
+            raise Exception('Not excepted type')
+
+        if index >= self.shape:
+            raise Exception('index is out of bound')
+
+        # TODO put in the array
 
     # TODO rename the property to something else and make shape return tuple
     @property
@@ -170,8 +182,19 @@ class Vector:
 
     @staticmethod
     def rand_int(length: int, start: int, end: int) -> Vector:
-        # TODO add a random int function
-        return Vector([])
+        vector = Vector([])
+
+        if not end:
+            end = start
+            start = 0
+
+        if start > end:
+            raise Exception('Parameter is wrong')
+
+        for i in range(length):
+            vector.append(randint(start, end))
+
+        return vector
 
     def __element_vector_operator(self, other: VECTOR_OR_NUMBER, func: Callable[[NUMBER, NUMBER], NUMBER]) -> Vector:
         """
