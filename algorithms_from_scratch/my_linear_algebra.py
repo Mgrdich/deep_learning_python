@@ -158,10 +158,12 @@ class Vector:
         if not uL.isNumber(value):
             raise Exception('Not excepted type')
 
-        if index >= self.shape:
+        if index >= self.shape: # TODO here validation negative check
             raise Exception('index is out of bound')
 
-        # TODO put in the array
+        self.__local_vector.insert(index, value)
+        # len() is O(1) operation
+        self.__length = len(self.__local_vector)
 
     # TODO rename the property to something else and make shape return tuple
     @property
