@@ -49,6 +49,11 @@ class Statistics:
 
     @staticmethod
     def de_mean(x: Vector) -> Vector:
+        """
+        translate x by subtracting its mean so the (result has a mean 0)
+        :param x is a Vector
+        :return result Vector
+        """
         x_bar: NUMBER = Statistics.mean(x)
         return Vector([x_i - x_bar for x_i in x])
 

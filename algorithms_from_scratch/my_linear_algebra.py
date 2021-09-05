@@ -158,7 +158,7 @@ class Vector:
         if not uL.isNumber(value):
             raise Exception('Not excepted type')
 
-        if index >= self.shape: # TODO here validation negative check
+        if index >= self.shape:  # TODO here validation negative check
             raise Exception('index is out of bound')
 
         self.__local_vector.insert(index, value)
