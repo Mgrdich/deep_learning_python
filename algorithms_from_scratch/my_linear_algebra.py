@@ -370,6 +370,10 @@ class Matrix:
     def eyes(shape: tuple) -> Matrix:
         pass
 
+    @staticmethod
+    def identity(shape: tuple) -> Matrix:
+        pass
+
     def __element_matrix_operator(self, other: MATRIX_OR_NUMBER, func: MATRIX_OPERATOR_CALLBACK) -> Matrix:
         """
         Private function that acts as a helper for normal arithmetic operations for Matrix
