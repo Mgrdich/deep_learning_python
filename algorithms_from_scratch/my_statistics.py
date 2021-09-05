@@ -1,4 +1,6 @@
 from __future__ import division
+
+import math
 from collections import Counter
 
 from my_linear_algebra import Vector
@@ -15,8 +17,8 @@ class Statistics:
 
     @staticmethod
     def median(x: Vector) -> NUMBER:
-        n = len(x)
-        sorted_arr = sorted(x)
+        n: int = len(x)
+        sorted_arr: list = sorted(x)
         mid_point = n // 2
 
         if n % 2 == 1:
@@ -38,8 +40,8 @@ class Statistics:
 
     @staticmethod
     def mode(x: Vector) -> Vector:
-        counts = Counter(x)
-        max_count = max(counts.values())
+        counts: dict = Counter(x)
+        max_count: NUMBER = max(counts.values())
         return Vector([x_i for x_i, count in counts.items()
                        if count == max_count])
 
@@ -49,11 +51,25 @@ class Statistics:
 
     @staticmethod
     def de_mean(x: Vector) -> Vector:
-        x_bar = Statistics.mean(x)
+        x_bar: NUMBER = Statistics.mean(x)
         return Vector([x_i - x_bar for x_i in x])
 
     @staticmethod
-    def variance(x: Vector):
-        n = len(x)
-        deviations = Statistics.de_mean(x)
+    def variance(x: Vector) -> NUMBER:
+        n: int = len(x)
+        deviations: Vector = Statistics.de_mean(x)
         return deviations.sum_of_squares / (n - 1)
+
+    @staticmethod
+    def standard_deviation(x: Vector) -> NUMBER:
+        return math.sqrt(Statistics.variance(x))
+
+    @staticmethod
+    def interquartile_range(x: Vector) -> NUMBER:
+        return Statistics.quantile(x, .75) - Statistics.quantile(x, .25)
+
+    @staticmethod
+    def covariance(x: Vector, y: Vector) -> NUMBER:
+        n: int = len(x)
+        return Statistics.de_mean(x).dot(Statistics.de_mean(y)) / (n - 1)
+
