@@ -136,7 +136,7 @@ class Vector:
 
     @vector_other_validation
     def sum_of_squares_with(self, other: Vector) -> NUMBER:
-        return self.dot(other)
+        return self.dot(other) ** 2
 
     @vector_other_validation
     def squared_distance(self, other: Vector) -> NUMBER:
@@ -176,7 +176,7 @@ class Vector:
 
     @property
     def sum_of_squares(self) -> NUMBER:
-        return self.dot(self)
+        return self.sum_of_squares_with(self)
 
     @property
     def magnitude(self) -> NUMBER:
