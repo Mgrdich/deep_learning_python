@@ -135,16 +135,13 @@ class Vector:
         return sum(self * other)
 
     @vector_other_validation
-    def sum_of_squares_with(self, other: Vector) -> NUMBER:
-        return self.dot(other) ** 2
-
-    @vector_other_validation
     def squared_distance(self, other: Vector) -> NUMBER:
-        return self.sum_of_squares_with(self - other)
+        new_vector: Vector = self - other
+        return new_vector.dot(new_vector)
 
     @vector_other_validation
     def distance(self, other: Vector) -> NUMBER:
-        return math.sqrt(self.sum_of_squares_with(other))
+        return math.sqrt(self.squared_distance(other))
 
     def append(self, value: VECTOR_OR_NUMBER_OR_ITERABLE):
         if not uL.isNumber(value):
@@ -176,7 +173,7 @@ class Vector:
 
     @property
     def sum_of_squares(self) -> NUMBER:
-        return self.sum_of_squares_with(self)
+        return self.dot(self)
 
     @property
     def magnitude(self) -> NUMBER:
