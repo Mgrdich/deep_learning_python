@@ -37,17 +37,23 @@ class Statistics:
         return sorted(x)[p_index]
 
     @staticmethod
-    def mode(x: Vector) -> list:
+    def mode(x: Vector) -> Vector:
         counts = Counter(x)
         max_count = max(counts.values())
-        return [x_i for x_i, count in counts.items()
-                if count == max_count]
+        return Vector([x_i for x_i, count in counts.items()
+                       if count == max_count])
 
     @staticmethod
     def data_range(x: Vector) -> NUMBER:
         return max(x) - min(x)
 
     @staticmethod
-    def de_mean(x: Vector) -> list:
+    def de_mean(x: Vector) -> Vector:
         x_bar = Statistics.mean(x)
-        return [x_i - x_bar for x_i in x]
+        return Vector([x_i - x_bar for x_i in x])
+
+    @staticmethod
+    def variance(x: Vector):
+        n = len(x)
+        deviations = Statistics.de_mean(x)
+        return deviations.sum_of_squares / (n - 1)
