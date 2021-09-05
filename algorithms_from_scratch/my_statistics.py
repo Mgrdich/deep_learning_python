@@ -7,8 +7,6 @@ from my_linear_algebra import Vector
 from util.typings import NUMBER
 
 
-# TODO maybe make an inheritance with the Vector method
-
 class Statistics:
 
     @staticmethod
@@ -73,3 +71,12 @@ class Statistics:
         n: int = len(x)
         return Statistics.de_mean(x).dot(Statistics.de_mean(y)) / (n - 1)
 
+    @staticmethod
+    def correlation(x: Vector, y: Vector):
+        stdev_x: NUMBER = Statistics.standard_deviation(x)
+        stdev_y: NUMBER = Statistics.standard_deviation(y)
+
+        if stdev_x > 0 and stdev_y > 0:
+            return Statistics.covariance(x, y) / stdev_x / stdev_y
+
+        return 0
