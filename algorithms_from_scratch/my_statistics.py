@@ -7,6 +7,7 @@ from my_linear_algebra import Vector
 from util.typings import NUMBER
 
 
+# TODO turn it with inheritance
 class Statistics:
 
     @staticmethod
@@ -61,7 +62,7 @@ class Statistics:
     def variance(x: Vector) -> NUMBER:
         n: int = len(x)
         deviations: Vector = Statistics.de_mean(x)
-        return deviations.sum_of_squares / (n - 1)
+        return deviations.sum_of_squares() / (n - 1)
 
     @staticmethod
     def standard_deviation(x: Vector) -> NUMBER:
