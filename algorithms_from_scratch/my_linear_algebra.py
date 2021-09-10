@@ -162,6 +162,9 @@ class Vector:
         # len() is O(1) operation
         self.__length = len(self.__local_vector)
 
+    def sum_of_squares(self) -> NUMBER:
+        return self.dot(self)
+
     # TODO rename the property to something else and make shape return tuple
     @property
     def shape(self) -> int:
@@ -172,16 +175,12 @@ class Vector:
         return self.shape,
 
     @property
-    def sum_of_squares(self) -> NUMBER:
-        return self.dot(self)
-
-    @property
     def magnitude(self) -> NUMBER:
-        return math.sqrt(self.sum_of_squares)
+        return math.sqrt(self.sum_of_squares())
 
-    @staticmethod
-    def rand_int(length: int, start: int, end: int) -> Vector:
-        vector = Vector([])
+    @classmethod
+    def rand_int(cls, length: int, start: int, end: int) -> Vector:
+        vector = cls([])
 
         if not end:
             end = start
