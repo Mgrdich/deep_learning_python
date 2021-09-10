@@ -1,23 +1,22 @@
-from __future__ import division
+from __future__ import division, annotations
 
 import math
 from collections import Counter
 
 from my_linear_algebra import Vector
-from util.typings import NUMBER
+from util.typings import NUMBER, ITERABLE
 
 
-# TODO turn it with inheritance
-class Statistics:
+class Statistics(Vector):
+    def __init__(self, iterator: ITERABLE):
+        super().__init__(iterator)
 
-    @staticmethod
-    def mean(x: Vector) -> NUMBER:
-        return sum(x) / len(x)
+    def mean(self) -> NUMBER:
+        return sum(self) / len(self)
 
-    @staticmethod
-    def median(x: Vector) -> NUMBER:
-        n: int = len(x)
-        sorted_arr: list = sorted(x)
+    def median(self) -> NUMBER:
+        n: int = len(self)
+        sorted_arr: list = sorted(self)
         mid_point = n // 2
 
         if n % 2 == 1:
@@ -27,62 +26,51 @@ class Statistics:
         hi = mid_point
         return (sorted_arr[lo] + sorted_arr[hi]) / 2
 
-    @staticmethod
-    def quantile(x: Vector, p: NUMBER) -> NUMBER:
+    def quantile(self, p: NUMBER) -> NUMBER:
         """
-        :param x: a Vector of Numbers
         :param p: the percentile value
         :return pth-percentile value in x
         """
-        p_index = int(p * len(x))
-        return sorted(x)[p_index]
+        p_index = int(p * len(self))
+        return sorted(self)[p_index]
 
-    @staticmethod
-    def mode(x: Vector) -> Vector:
-        counts: dict = Counter(x)
+    def mode(self) -> Vector:
+        counts: dict = Counter(self)
         max_count: NUMBER = max(counts.values())
         return Vector([x_i for x_i, count in counts.items()
                        if count == max_count])
 
-    @staticmethod
-    def data_range(x: Vector) -> NUMBER:
-        return max(x) - min(x)
+    def data_range(self) -> NUMBER:
+        return max(self) - min(self)
 
-    @staticmethod
-    def de_mean(x: Vector) -> Vector:
+    def de_mean(self) -> Vector:
         """
         translate x by subtracting its mean so the (result has a mean 0)
-        :param x is a Vector
         :return result Vector
         """
-        x_bar: NUMBER = Statistics.mean(x)
-        return Vector([x_i - x_bar for x_i in x])
+        x_bar: NUMBER = self.mean()
+        return Vector([x_i - x_bar for x_i in self])
 
-    @staticmethod
-    def variance(x: Vector) -> NUMBER:
-        n: int = len(x)
-        deviations: Vector = Statistics.de_mean(x)
+    def variance(self) -> NUMBER:
+        n: int = len(self)
+        deviations: Vector = self.de_mean()
         return deviations.sum_of_squares() / (n - 1)
 
-    @staticmethod
-    def standard_deviation(x: Vector) -> NUMBER:
-        return math.sqrt(Statistics.variance(x))
+    def standard_deviation(self) -> NUMBER:
+        return math.sqrt(self.variance())
 
-    @staticmethod
-    def interquartile_range(x: Vector) -> NUMBER:
-        return Statistics.quantile(x, .75) - Statistics.quantile(x, .25)
+    def interquartile_range(self) -> NUMBER:
+        return self.quantile(.75) - self.quantile(.25)
 
-    @staticmethod
-    def covariance(x: Vector, y: Vector) -> NUMBER:
-        n: int = len(x)
-        return Statistics.de_mean(x).dot(Statistics.de_mean(y)) / (n - 1)
+    def covariance(self, y: Statistics) -> NUMBER:
+        n: int = len(self)
+        return self.de_mean().dot(y.de_mean()) / (n - 1)
 
-    @staticmethod
-    def correlation(x: Vector, y: Vector):
-        stdev_x: NUMBER = Statistics.standard_deviation(x)
-        stdev_y: NUMBER = Statistics.standard_deviation(y)
+    def correlation(self, y: Statistics):
+        stdev_x: NUMBER = self.standard_deviation()
+        stdev_y: NUMBER = y.standard_deviation()
 
         if stdev_x > 0 and stdev_y > 0:
-            return Statistics.covariance(x, y) / stdev_x / stdev_y
+            return self.covariance(y) / stdev_x / stdev_y
 
         return 0
