@@ -167,12 +167,12 @@ class Vector:
 
     # TODO rename the property to something else and make shape return tuple
     @property
-    def shape(self) -> int:
+    def length(self) -> int:
         return self.__length
 
     @property
-    def shape_tuple(self) -> tuple:
-        return self.shape,
+    def shape(self) -> tuple:
+        return self.length,
 
     @property
     def magnitude(self) -> NUMBER:
@@ -212,9 +212,9 @@ class Vector:
                 raise Exception('Two Vectors not of the same shape')
 
             # Creates a new vector and allocate memory
-            new_vector = Vector([0] * self.shape)
+            new_vector = Vector([0] * self.length)
 
-            for ind in range(self.shape):
+            for ind in range(self.length):
                 new_vector[ind] = func(self[ind], other[ind])
 
             return new_vector
@@ -229,7 +229,7 @@ class Vector:
         :param func: must be a pure function that does the operation and returns a Number
         :return Vector instance
         """
-        return Vector([func(self[i], other[i]) for i in range(self.shape)])
+        return Vector([func(self[i], other[i]) for i in range(self.length)])
 
     def __element_operation(self, func: Callable[[NUMBER], NUMBER]) -> Vector:
         """
@@ -386,7 +386,7 @@ class Matrix:
             ])
 
         if isinstance(other, Vector):
-            if uL.canBroadcast(self.shape, other.shape_tuple):
+            if uL.canBroadcast(self.shape, other.shape):
                 pass
 
         if isinstance(other, self.__class__):
