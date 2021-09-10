@@ -1,5 +1,7 @@
 from typing import Iterable
 
+from util.typings import NUMBER
+
 
 class Util_Lib:
 
@@ -30,6 +32,14 @@ class Util_Lib:
     @staticmethod
     def isNumber(element) -> bool:
         return Util_Lib.isInteger(element) or Util_Lib.isFloat(element)
+
+    @staticmethod
+    def isNegative(element: NUMBER) -> bool:
+        return element < 0
+
+    @staticmethod
+    def isPositive(element: NUMBER) -> bool:
+        return element > 0
 
     @staticmethod
     def isTensor(element) -> bool:

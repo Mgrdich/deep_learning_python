@@ -22,7 +22,15 @@ def vector_other_validation(function: Callable):
 
 def vector_out_of_bounds_validation(function: Callable):
     def wrapper(*args):
-        # TODO add the functionality
+        # args[0] --> self
+        vector_length = args[0].length
+        key: NUMBER = args[1]
+
+        equality: bool = (key >= vector_length) if uL.isPositive(key) else (key < (vector_length * -1))
+
+        if equality:
+            raise Exception('Index out of bounds')
+
         return function(*args)
 
     return wrapper
@@ -105,16 +113,12 @@ class Vector:
 
         return self.__element_operation(lambda i: math.pow(i, power))
 
+    @vector_out_of_bounds_validation
     def __getitem__(self, key: int) -> NUMBER:
-        if key >= self.length:
-            raise Exception('Vector out of bounds')
-
         return self.__local_vector[key]
 
+    @vector_out_of_bounds_validation
     def __setitem__(self, key: int, value: NUMBER):
-        if key >= self.length:
-            raise Exception('Vector out of bounds')
-
         self.__local_vector[key] = value
 
     def __iter__(self) -> Vector:
