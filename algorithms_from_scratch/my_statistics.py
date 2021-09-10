@@ -8,8 +8,16 @@ from util.typings import NUMBER, ITERABLE
 
 
 class Statistics(Vector):
+    # TODO maybe add some distribution like numpy ??
+
     def __init__(self, iterator: ITERABLE):
         super().__init__(iterator)
+
+    def __str__(self) -> str:
+        return "Statistics({0})".format(self.__local_vector)
+
+    def __repr__(self) -> str:
+        return self.__str__()
 
     def mean(self) -> NUMBER:
         return sum(self) / len(self)
