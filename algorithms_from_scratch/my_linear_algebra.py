@@ -155,7 +155,7 @@ class Vector:
         if not uL.isNumber(value):
             raise Exception('Not excepted type')
 
-        if index >= self.shape:  # TODO here validation negative check
+        if index >= self.length:  # TODO here validation negative check
             raise Exception('index is out of bound')
 
         self.__local_vector.insert(index, value)
@@ -165,7 +165,6 @@ class Vector:
     def sum_of_squares(self) -> NUMBER:
         return self.dot(self)
 
-    # TODO rename the property to something else and make shape return tuple
     @property
     def length(self) -> int:
         return self.__length
