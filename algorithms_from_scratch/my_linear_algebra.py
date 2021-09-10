@@ -20,6 +20,14 @@ def vector_other_validation(function: Callable):
     return wrapper
 
 
+def vector_out_of_bounds_validation(function: Callable):
+    def wrapper(*args):
+        # TODO add the functionality
+        return function(*args)
+
+    return wrapper
+
+
 def matrix_other_validation(function: Callable):
     def wrapper(*args):
         return function(*args)
@@ -98,13 +106,13 @@ class Vector:
         return self.__element_operation(lambda i: math.pow(i, power))
 
     def __getitem__(self, key: int) -> NUMBER:
-        if key >= self.shape:
+        if key >= self.length:
             raise Exception('Vector out of bounds')
 
         return self.__local_vector[key]
 
     def __setitem__(self, key: int, value: NUMBER):
-        if key >= self.shape:
+        if key >= self.length:
             raise Exception('Vector out of bounds')
 
         self.__local_vector[key] = value
@@ -122,7 +130,7 @@ class Vector:
             raise StopIteration
 
     def __len__(self) -> int:
-        return self.shape
+        return self.length
 
     def __str__(self) -> str:
         return "Vector({0})".format(self.__local_vector)
@@ -360,16 +368,16 @@ class Matrix:
     def column(self) -> int:
         return self.__shape[1]
 
-    @staticmethod
-    def ones(shape: tuple) -> Matrix:
+    @classmethod
+    def ones(cls, shape: tuple) -> Matrix:
         pass
 
-    @staticmethod
-    def eyes(shape: tuple) -> Matrix:
+    @classmethod
+    def eyes(cls, shape: tuple) -> Matrix:
         pass
 
-    @staticmethod
-    def identity(shape: tuple) -> Matrix:
+    @classmethod
+    def identity(cls, shape: tuple) -> Matrix:
         pass
 
     def __element_matrix_operator(self, other: MATRIX_OR_NUMBER, func: MATRIX_OPERATOR_CALLBACK) -> Matrix:
