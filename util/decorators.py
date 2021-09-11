@@ -6,12 +6,9 @@ exception_decorators = dict()
 
 
 def register_exception_decorators(function: Callable):
-    @wraps(function)
-    def wrapper(*args, **kwargs):
-        exception_decorators['exc_' + function.__name__] = function
-        return function(*args, **kwargs)
-
-    return wrapper
+    # TODO add plugin unique name error
+    exception_decorators[function.__name__] = function
+    return function
 
 
 @register_exception_decorators
