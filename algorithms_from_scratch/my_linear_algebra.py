@@ -6,6 +6,9 @@ from random import randint
 from typing import Union, Callable, List, Tuple
 from util.Util_lib import Util_Lib as uL
 from util.typings import NUMBER, ITERABLE, NUMBER_OR_ITERABLE
+from util.decorators import exception_decorators
+
+exception_is_number: Callable = exception_decorators['is_number']
 
 
 def vector_other_validation(function: Callable):
@@ -14,7 +17,7 @@ def vector_other_validation(function: Callable):
         if not isinstance(args[1], Vector):
             raise Exception('The parameter Not Vector Type')
 
-        if args[0].shape != args[1].shape:
+        if args[0].length != args[1].length:
             raise Exception('Two Vectors not of the same shape')
 
         return function(*args, **kwargs)
@@ -159,17 +162,14 @@ class Vector:
     def distance(self, other: Vector) -> NUMBER:
         return math.sqrt(self.squared_distance(other))
 
+    @exception_is_number(True)
     def append(self, value: VECTOR_OR_NUMBER_OR_ITERABLE):
-        if not uL.isNumber(value):
-            raise Exception('Not excepted type')
-
         self.__local_vector.append(value)
         # len() is O(1) operation
         self.__length = len(self.__local_vector)
 
+    @exception_is_number
     def insert_at(self, value: VECTOR_OR_NUMBER_OR_ITERABLE, index: int):
-        if not uL.isNumber(value):
-            raise Exception('Not excepted type')
 
         if index >= self.length:  # TODO here validation negative check
             raise Exception('index is out of bound')
