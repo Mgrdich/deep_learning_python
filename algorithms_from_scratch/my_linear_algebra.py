@@ -10,21 +10,21 @@ from util.typings import NUMBER, ITERABLE, NUMBER_OR_ITERABLE
 
 def vector_other_validation(function: Callable):
     @wraps(function)
-    def wrapper(*args):
+    def wrapper(*args, **kwargs):
         if not isinstance(args[1], Vector):
             raise Exception('The parameter Not Vector Type')
 
         if args[0].shape != args[1].shape:
             raise Exception('Two Vectors not of the same shape')
 
-        return function(*args)
+        return function(*args, **kwargs)
 
     return wrapper
 
 
 def vector_out_of_bounds_validation(function: Callable):
     @wraps(function)
-    def wrapper(*args):
+    def wrapper(*args, **kwargs):
         # args[0] --> self
         vector_length = args[0].length
         key: NUMBER = args[1]
@@ -34,7 +34,7 @@ def vector_out_of_bounds_validation(function: Callable):
         if equality:
             raise Exception('Index out of bounds')
 
-        return function(*args)
+        return function(*args, **kwargs)
 
     return wrapper
 
