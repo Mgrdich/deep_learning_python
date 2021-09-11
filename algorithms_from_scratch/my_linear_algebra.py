@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import math
+from functools import wraps
 from random import randint
 from typing import Union, Callable, List, Tuple
 from util.Util_lib import Util_Lib as uL
@@ -8,6 +9,7 @@ from util.typings import NUMBER, ITERABLE, NUMBER_OR_ITERABLE
 
 
 def vector_other_validation(function: Callable):
+    @wraps(function)
     def wrapper(*args):
         if not isinstance(args[1], Vector):
             raise Exception('The parameter Not Vector Type')
@@ -21,6 +23,7 @@ def vector_other_validation(function: Callable):
 
 
 def vector_out_of_bounds_validation(function: Callable):
+    @wraps(function)
     def wrapper(*args):
         # args[0] --> self
         vector_length = args[0].length
@@ -37,6 +40,7 @@ def vector_out_of_bounds_validation(function: Callable):
 
 
 def matrix_other_validation(function: Callable):
+    @wraps(function)
     def wrapper(*args):
         return function(*args)
 
