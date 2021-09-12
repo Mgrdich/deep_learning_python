@@ -65,7 +65,7 @@ class Statistics(Vector):
     def standard_deviation(self) -> NUMBER:
         return math.sqrt(self.variance())
 
-    def interquartile_range(self) -> NUMBER:
+    def inter_quantile_range(self) -> NUMBER:
         return self.quantile(.75) - self.quantile(.25)
 
     def covariance(self, y: Statistics) -> NUMBER:
