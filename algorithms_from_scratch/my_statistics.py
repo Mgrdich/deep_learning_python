@@ -8,8 +8,6 @@ from util.typings import NUMBER, ITERABLE
 
 
 class Statistics(Vector):
-    # TODO maybe add some distribution like numpy ??
-
     def __init__(self, iterator: ITERABLE):
         super().__init__(iterator)
 
