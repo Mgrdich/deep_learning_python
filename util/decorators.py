@@ -18,10 +18,12 @@ def is_number(is_method: bool):
     def decorator(function):
         @wraps(function)
         def wrapper(*args, **kwargs):
-            if is_method:
+            if is_method and len(args) == 2:
                 element = args[1]
-            else:
+            elif len(args) == 1:
                 element = args[0]
+            else:
+                raise Exception('The function needs a parameter')
 
             if not uL.isNumber(element):
                 raise Exception('Not a Number')
