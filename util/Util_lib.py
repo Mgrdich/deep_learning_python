@@ -50,6 +50,10 @@ class Util_Lib:
         return element is None
 
     @staticmethod
+    def isProbability(element) -> bool:
+        return Util_Lib.isNumber(element) and (0 <= element <= 1)
+
+    @staticmethod
     def isListEleSameLength(element: list) -> bool:
         initial_length = len(element[0])  # TODO not tested yet
         return all(initial_length == len(ele) for ele in element)
