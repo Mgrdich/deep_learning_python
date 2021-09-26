@@ -40,16 +40,16 @@ class Probability:
 
     @staticmethod
     def bernoulli_trial(p: NUMBER) -> NUMBER:
-        if not uL.isProbability(p):
+        if not uL.is_probability(p):
             raise Exception('p is no in probability form')
         return 1 if random.random() < p else 0
 
     @staticmethod
     def binomial(n: int, p: NUMBER) -> NUMBER:
-        if not uL.isInteger(n):
+        if not uL.is_integer(n):
             raise Exception('n should be an integer')
 
-        if not uL.isProbability(p):
+        if not uL.is_probability(p):
             raise Exception('p is no in probability form')
 
         return sum(Probability.bernoulli_trial(i) for i in range(n))

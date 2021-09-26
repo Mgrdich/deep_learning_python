@@ -73,7 +73,7 @@ def vectors_mean(v: List[List]) -> List:
     :return: Vector mean
     """
     # TODO make me a decorator perhaps?
-    if not Util_Lib.isTensor(v):
+    if not Util_Lib.is_tensor(v):
         raise Exception('Not a matrix')
 
     # isListSameLength function should be used  TODO Bad point no check of same size
@@ -148,7 +148,7 @@ def matrix_shape(A: List[List]) -> tuple:
     """
 
     # TODO make me a decorator perhaps?
-    if not Util_Lib.isTensor(A):
+    if not Util_Lib.is_tensor(A):
         raise Exception('Not a matrix')
 
     num_rows = len(A)

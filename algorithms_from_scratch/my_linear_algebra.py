@@ -32,7 +32,7 @@ def vector_out_of_bounds_validation(function: Callable):
         vector_length = args[0].length
         key: NUMBER = args[1]
 
-        equality: bool = (key >= vector_length) if uL.isPositive(key) else (key < (vector_length * -1))
+        equality: bool = (key >= vector_length) if uL.is_positive(key) else (key < (vector_length * -1))
 
         if equality:
             raise Exception('Index out of bounds')
@@ -55,10 +55,10 @@ class Vector:
         self.__local_vector: list = []
         self.__length: int = 0
 
-        if not uL.isIterable(iterator):
+        if not uL.is_iterable(iterator):
             raise Exception('Parameter must by an iterator object')
 
-        if uL.isDictionary(iterator):
+        if uL.is_dictionary(iterator):
             iterator = iterator.values()
 
         iterator = iterator.copy()
@@ -266,7 +266,7 @@ class Matrix:
             else:
                 vector_element = Vector(i)
 
-            if not uL.isNone(last_vector_shape) and vector_element.shape != last_vector_shape:
+            if not uL.is_none(last_vector_shape) and vector_element.shape != last_vector_shape:
                 raise Exception('Nested Vectors are not of the same length')
 
             last_vector_shape = vector_element.shape

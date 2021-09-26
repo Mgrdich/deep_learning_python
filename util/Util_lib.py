@@ -6,58 +6,53 @@ from util.typings import NUMBER
 class Util_Lib:
 
     @staticmethod
-    def isList(element) -> bool:
+    def is_list(element) -> bool:
         return isinstance(element, list)
 
     @staticmethod
-    def isTuple(element) -> bool:
+    def is_tuple(element) -> bool:
         return isinstance(element, tuple)
 
     @staticmethod
-    def isDictionary(element) -> bool:
+    def is_dictionary(element) -> bool:
         return isinstance(element, dict)
 
     @staticmethod
-    def isIterable(element) -> bool:
+    def is_iterable(element) -> bool:
         return isinstance(element, Iterable)
 
     @staticmethod
-    def isFloat(element) -> bool:
+    def is_float(element) -> bool:
         return isinstance(element, float)
 
     @staticmethod
-    def isInteger(element) -> bool:
+    def is_integer(element) -> bool:
         return isinstance(element, int)
 
     @staticmethod
     def isNumber(element) -> bool:
-        return Util_Lib.isInteger(element) or Util_Lib.isFloat(element)
+        return Util_Lib.is_integer(element) or Util_Lib.is_float(element)
 
     @staticmethod
-    def isNegative(element: NUMBER) -> bool:
+    def is_negative(element: NUMBER) -> bool:
         return element < 0
 
     @staticmethod
-    def isPositive(element: NUMBER) -> bool:
+    def is_positive(element: NUMBER) -> bool:
         return element > 0
 
     @staticmethod
-    def isTensor(element) -> bool:
+    def is_tensor(element) -> bool:
         return all(isinstance(ele, list) for ele in element)
 
     @staticmethod
-    def isNone(element) -> bool:
+    def is_none(element) -> bool:
         return element is None
 
     @staticmethod
-    def isProbability(element) -> bool:
+    def is_probability(element) -> bool:
         return Util_Lib.isNumber(element) and (0 <= element <= 1)
 
     @staticmethod
-    def isListEleSameLength(element: list) -> bool:
-        initial_length = len(element[0])  # TODO not tested yet
-        return all(initial_length == len(ele) for ele in element)
-
-    @staticmethod
-    def canBroadcast(shape: tuple, other_shape: tuple) -> bool:
+    def can_broadcast(shape: tuple, other_shape: tuple) -> bool:
         pass
