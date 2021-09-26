@@ -401,7 +401,7 @@ class Matrix:
             ])
 
         if isinstance(other, Vector):
-            if uL.canBroadcast(self.shape, other.shape):
+            if uL.can_broadcast(self.shape, other.shape):
                 pass
 
         if isinstance(other, self.__class__):
